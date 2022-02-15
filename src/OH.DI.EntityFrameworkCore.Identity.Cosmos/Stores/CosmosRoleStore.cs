@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using OHDI.EntityFrameworkCore.Identity.Cosmos.Contracts;
+using OH.DI.EntityFrameworkCore.Identity.Cosmos.Contracts;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace OHDI.EntityFrameworkCore.Identity.Cosmos.Stores
+namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
 {
     internal class CosmosRoleStore<TRoleEntity> : IRoleStore<TRoleEntity> where TRoleEntity : IdentityRole, new()
     {

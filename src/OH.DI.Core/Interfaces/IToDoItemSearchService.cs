@@ -5,6 +5,6 @@ namespace OH.DI.Core.Interfaces;
 
 public interface IToDoItemSearchService
 {
-  Task<Result<ToDoItem>> GetNextIncompleteItemAsync(int projectId);
-  Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(int projectId, string searchString);
+  Task<Result<ToDoItem>> GetNextIncompleteItemAsync(string projectId);
+  Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string projectId, string searchString);
 }

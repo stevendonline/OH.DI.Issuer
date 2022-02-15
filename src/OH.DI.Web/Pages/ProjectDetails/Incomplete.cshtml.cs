@@ -21,7 +21,7 @@ public class IncompleteModel : PageModel
 
   public async Task OnGetAsync()
   {
-    var projectSpec = new ProjectByIdWithItemsSpec(1); // TODO: get from route
+    var projectSpec = new ProjectByIdWithItemsSpec("1"); // TODO: get from route
     var project = await _repository.GetBySpecAsync(projectSpec);
     if (project == null)
     {

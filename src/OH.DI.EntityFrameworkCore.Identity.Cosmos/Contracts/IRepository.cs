@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace OHDI.EntityFrameworkCore.Identity.Cosmos.Contracts
+namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Contracts
 {
     public interface IRepository
     {

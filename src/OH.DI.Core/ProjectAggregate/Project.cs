@@ -15,6 +15,13 @@ public class Project : BaseEntity, IAggregateRoot
 
   public Project(string name)
   {
+    Id = Guid.NewGuid().ToString();
+    Name = Guard.Against.NullOrEmpty(name, nameof(name));
+  }
+
+  public Project(string id, string name)
+  {
+    Id = id;
     Name = Guard.Against.NullOrEmpty(name, nameof(name));
   }
 

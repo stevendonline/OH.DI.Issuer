@@ -8,6 +8,8 @@ public class ToDoConfiguration : IEntityTypeConfiguration<ToDoItem>
 {
   public void Configure(EntityTypeBuilder<ToDoItem> builder)
   {
+    builder.ToContainer("ToDoItem");
+    builder.HasPartitionKey(todoitem => todoitem.Id);
     builder.Property(t => t.Title)
         .IsRequired();
   }

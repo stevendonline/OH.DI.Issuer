@@ -29,7 +29,7 @@ public class ListIncomplete : EndpointBaseAsync
     {
       return BadRequest();
     }
-    var response = new ListIncompleteResponse(0, new List<ToDoItemRecord>());
+    var response = new ListIncompleteResponse(1.ToString(), new List<ToDoItemRecord>());
     var result = await _searchService.GetAllIncompleteItemsAsync(request.ProjectId, request.SearchString);
 
     if (result.Status == Ardalis.Result.ResultStatus.Ok)

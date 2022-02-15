@@ -13,10 +13,12 @@ namespace OH.DI.Web.Api;
 public class ProjectsController : BaseApiController
 {
   private readonly IRepository<Project> _repository;
+  private readonly IRepository<ToDoItem> _itemRep;
 
-  public ProjectsController(IRepository<Project> repository)
+  public ProjectsController(IRepository<Project> repository, IRepository<ToDoItem > itemRep)
   {
     _repository = repository;
+    _itemRep = itemRep;
   }
 
   // GET: api/Projects
@@ -35,8 +37,8 @@ public class ProjectsController : BaseApiController
   }
 
   // GET: api/Projects
-  [HttpGet("{id:int}")]
-  public async Task<IActionResult> GetById(int id)
+  [HttpGet("{id}")]
+  public async Task<IActionResult> GetById(string id)
   {
     var projectSpec = new ProjectByIdWithItemsSpec(id);
     var project = await _repository.GetBySpecAsync(projectSpec);
@@ -76,7 +78,7 @@ public class ProjectsController : BaseApiController
 
   // PATCH: api/Projects/{projectId}/complete/{itemId}
   [HttpPatch("{projectId:int}/complete/{itemId}")]
-  public async Task<IActionResult> Complete(int projectId, int itemId)
+  public async Task<IActionResult> Complete(string projectId, string itemId)
   {
     var projectSpec = new ProjectByIdWithItemsSpec(projectId);
     var project = await _repository.GetBySpecAsync(projectSpec);

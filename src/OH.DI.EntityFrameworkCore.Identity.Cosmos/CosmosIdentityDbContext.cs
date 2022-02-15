@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using OHDI.EntityFrameworkCore.Identity.Cosmos.Extensions;
+using OH.DI.EntityFrameworkCore.Identity.Cosmos.Extensions;
 
-namespace OHDI.EntityFrameworkCore.Identity.Cosmos
+namespace OH.DI.EntityFrameworkCore.Identity.Cosmos
 {
     public class CosmosIdentityDbContext<TUserEntity> : ApiAuthorizationDbContext<TUserEntity> where TUserEntity : IdentityUser
     {

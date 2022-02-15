@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using OHDI.EntityFrameworkCore.Identity.Cosmos.EntityConfigurations;
+using OH.DI.EntityFrameworkCore.Identity.Cosmos.EntityConfigurations;
 
-namespace OHDI.EntityFrameworkCore.Identity.Cosmos.Extensions
+namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Extensions
 {
     public static class ModelBuilderExtensions
     {

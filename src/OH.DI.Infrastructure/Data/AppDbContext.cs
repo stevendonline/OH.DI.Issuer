@@ -16,12 +16,14 @@ public class AppDbContext : DbContext
 
   public AppDbContext(DbContextOptions<AppDbContext> options, IMediator? mediator)
       : base(options)
-  {
+  {    
     _mediator = mediator;
   }
 
-  public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
-  public DbSet<Project> Projects => Set<Project>();
+  //public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
+  public DbSet<ToDoItem> ToDoItems { get; set; }
+  //public DbSet<Project> Projects => Set<Project>();
+  public DbSet<Project> Projects { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

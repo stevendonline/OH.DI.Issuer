@@ -18,9 +18,9 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-string connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext(connectionString);
+//string connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  
+//Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddCosmosDbContext(builder.Configuration.GetSection(nameof(CosmosSettings)));
 
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddRazorPages();

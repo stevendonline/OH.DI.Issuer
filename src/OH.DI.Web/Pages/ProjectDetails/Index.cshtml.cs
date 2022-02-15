@@ -14,7 +14,7 @@ public class IndexModel : PageModel
   private readonly IRepository<Project> _repository;
 
   [BindProperty(SupportsGet = true)]
-  public int ProjectId { get; set; }
+  public string ProjectId { get; set; }
   public string Message { get; set; } = "";
 
   public ProjectDTO? Project { get; set; }

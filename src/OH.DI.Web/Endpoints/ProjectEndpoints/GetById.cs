@@ -4,6 +4,7 @@ using OH.DI.Core.ProjectAggregate.Specifications;
 using OH.DI.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Linq;
 
 namespace OH.DI.Web.Endpoints.ProjectEndpoints;
 
@@ -12,10 +13,12 @@ public class GetById : EndpointBaseAsync
     .WithActionResult<GetProjectByIdResponse>
 {
   private readonly IRepository<Project> _repository;
+  private readonly IRepository<ToDoItem> _itemRep;
 
-  public GetById(IRepository<Project> repository)
+  public GetById(IRepository<Project> repository, IRepository<ToDoItem> itemRep)
   {
     _repository = repository;
+    _itemRep = itemRep;
   }
 
   [HttpGet(GetProjectByIdRequest.Route)]
@@ -32,12 +35,16 @@ public class GetById : EndpointBaseAsync
     var entity = await _repository.GetBySpecAsync(spec); // TODO: pass cancellation token
     if (entity == null) return NotFound();
 
+    var itemSpec = new ToDoItemsByIdSpec(request.ProjectId);
+    var proitems = (await _itemRep.ListAsync(itemSpec)).Select(i => new ToDoItemRecord(i.Id, i.Title, i.Description, i.IsDone )).ToList();
+
     var response = new GetProjectByIdResponse
     (
         id: entity.Id,
         name: entity.Name,
-        items: entity.Items.Select(item => new ToDoItemRecord(item.Id, item.Title, item.Description, item.IsDone)).ToList()
+        items: proitems 
     );
+
     return Ok(response);
   }
 }

@@ -6,19 +6,23 @@ namespace OH.DI.Web;
 
 public static class SeedData
 {
-  public static readonly Project TestProject1 = new Project("Test Project");
+  public static readonly string proj1 = 1.ToString();
+  public static readonly Project TestProject1 = new Project(proj1, "Test Project");
   public static readonly ToDoItem ToDoItem1 = new ToDoItem
   {
+    Id = Guid.NewGuid().ToString(),
     Title = "Get Sample Working",
     Description = "Try to get the sample to build."
   };
   public static readonly ToDoItem ToDoItem2 = new ToDoItem
   {
+    Id = Guid.NewGuid().ToString(),
     Title = "Review Solution",
     Description = "Review the different projects in the solution and how they relate to one another."
   };
   public static readonly ToDoItem ToDoItem3 = new ToDoItem
   {
+    Id = Guid.NewGuid().ToString(),
     Title = "Run and Review Tests",
     Description = "Make sure all the tests run and review what they are doing."
   };
@@ -29,7 +33,7 @@ public static class SeedData
         serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
     {
       // Look for any TODO items.
-      if (dbContext.ToDoItems.Any())
+      if (dbContext.ToDoItems.Count() > 0)
       {
         return;   // DB has been seeded
       }

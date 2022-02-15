@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace OHDI.EntityFrameworkCore.Identity.Cosmos.EntityConfigurations
+namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.EntityConfigurations
 {
     public class RoleClaimEntityTypeConfiguration : IEntityTypeConfiguration<IdentityRoleClaim<string>>
     {

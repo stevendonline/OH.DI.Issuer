@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using OHDI.EntityFrameworkCore.Identity.Cosmos.Contracts;
-using OHDI.EntityFrameworkCore.Identity.Cosmos.Repositories;
-using OHDI.EntityFrameworkCore.Identity.Cosmos.Stores;
+using OH.DI.EntityFrameworkCore.Identity.Cosmos.Contracts;
+using OH.DI.EntityFrameworkCore.Identity.Cosmos.Repositories;
+using OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores;
 using System;
 
-namespace OHDI.EntityFrameworkCore.Identity.Cosmos.Extensions
+namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Extensions
 {
     public static class ServiceCollectionExtensions
     {
