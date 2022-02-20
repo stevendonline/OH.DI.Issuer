@@ -6,7 +6,7 @@ using OH.DI.Infrastructure;
 using OH.DI.Infrastructure.Data;
 using OH.DI.Web;
 using Microsoft.OpenApi.Models;
-
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +45,9 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
   containerBuilder.RegisterModule(new DefaultCoreModule());
   containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
+
+  containerBuilder.RegisterType<EmailSender>().As<IEmailSender>()
+        .InstancePerLifetimeScope();
 });
 
 
@@ -69,6 +72,9 @@ app.UseRouting();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCookiePolicy();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Enable middleware to serve generated Swagger as a JSON endpoint.
 app.UseSwagger();

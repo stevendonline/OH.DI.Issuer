@@ -30,7 +30,7 @@ public static class SeedData
   public static void Initialize(IServiceProvider serviceProvider)
   {
     using (var dbContext = new AppDbContext(
-        serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
+        serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null, null))
     {
       // Look for any TODO items.
       if (dbContext.ToDoItems.Count() > 0)

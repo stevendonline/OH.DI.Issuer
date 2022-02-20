@@ -3,10 +3,14 @@ using OH.DI.Core.ProjectAggregate;
 using OH.DI.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OH.DI.EntityFrameworkCore.Identity.Cosmos;
+using Microsoft.AspNetCore.Identity;
+using Duende.IdentityServer.EntityFramework.Options;
+using Microsoft.Extensions.Options;
 
 namespace OH.DI.Infrastructure.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext : CosmosIdentityDbContext<ApplicationUser>
 {
   private readonly IMediator? _mediator;
 
@@ -14,8 +18,8 @@ public class AppDbContext : DbContext
   //{
   //}
 
-  public AppDbContext(DbContextOptions<AppDbContext> options, IMediator? mediator)
-      : base(options)
+  public AppDbContext(DbContextOptions<AppDbContext> dbContextOptions, IOptions<OperationalStoreOptions> options, IMediator? mediator)
+      : base(dbContextOptions, options)
   {    
     _mediator = mediator;
   }

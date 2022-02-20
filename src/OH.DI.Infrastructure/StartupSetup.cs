@@ -1,10 +1,9 @@
 ﻿using OH.DI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore.Cosmos;
-using System.Configuration;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+using OH.DI.EntityFrameworkCore.Identity.Cosmos.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace OH.DI.Infrastructure;
 
@@ -18,12 +17,21 @@ public static class StartupSetup
   public static void AddCosmosDbContext(this IServiceCollection services, IConfiguration config)
   {
     var dbConf = config.Get<CosmosSettings>();
-    services.AddDbContext<AppDbContext>(options =>
-      {
-        options.UseCosmos(dbConf.EndPoint, dbConf.AccessKey, "didb");
-        options.EnableSensitiveDataLogging();
-      }
-    );
+    //services.AddDbContext<AppDbContext>(options =>
+    //  {
+    //    options.UseCosmos(dbConf.EndPoint, dbConf.AccessKey, "didb");
+    //    options.EnableSensitiveDataLogging();
+    //  }
+    //);
+
+    services.AddCosmosIdentity<AppDbContext, ApplicationUser, IdentityRole>(
+      idoptions => {
+        idoptions.User.RequireUniqueEmail = false;
+      },
+      dboptions => dboptions.UseCosmos(dbConf.EndPoint, dbConf.AccessKey, "didb"),
+      addDefaultTokenProviders: true)
+      .AddDefaultUI();
+    
   }
 }
 

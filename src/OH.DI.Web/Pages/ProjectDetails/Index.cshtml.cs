@@ -6,9 +6,10 @@ using OH.DI.SharedKernel.Interfaces;
 using OH.DI.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OH.DI.Web.Pages.ToDoRazorPage;
-
+[Authorize]
 public class IndexModel : PageModel
 {
   private readonly IRepository<Project> _repository;

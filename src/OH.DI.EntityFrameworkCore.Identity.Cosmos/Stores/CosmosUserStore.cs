@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
 {
-    internal class CosmosUserStore<TUserEntity> :
+    internal class CosmosUserStore<TUserEntity> : //UserStoreBase<TUserEntity>,
         IUserStore<TUserEntity>,
         IUserRoleStore<TUserEntity>,
         IUserEmailStore<TUserEntity>,
         IUserPasswordStore<TUserEntity>,
         IUserPhoneNumberStore<TUserEntity>,
-        IUserLoginStore<TUserEntity> where TUserEntity : IdentityUser, new()
+        IUserLoginStore<TUserEntity>,
+        IUserAuthenticatorKeyStore<TUserEntity> where TUserEntity : IdentityUser, new()
     {
         private readonly IRepository _repo;
 
@@ -446,5 +447,40 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
 
         public void Dispose()
         { }
+
+    public async Task SetAuthenticatorKeyAsync(TUserEntity user, string key, CancellationToken cancellationToken)
+    {
+      cancellationToken.ThrowIfCancellationRequested();
+
+      if (user == null) throw new ArgumentNullException(nameof(user));
+      if (string.IsNullOrWhiteSpace(key)) throw new ArgumentNullException(nameof(key));
+
+      try
+      {
+        IdentityUserToken<string> userToken = new IdentityUserToken<string>
+        {
+          UserId = user.Id,
+          Value = key
+        };
+
+        _repo.Add(userToken);
+        await _repo.SaveChangesAsync();
+      }
+      catch { }
     }
+
+    public async Task<string> GetAuthenticatorKeyAsync(TUserEntity user, CancellationToken cancellationToken)
+    {
+      cancellationToken.ThrowIfCancellationRequested();
+
+      if (user == null) throw new ArgumentNullException(nameof(user));
+
+      var token = await _repo.Table<IdentityUserToken<string>>()
+        .SingleOrDefaultAsync(_ => _.UserId == user.Id, cancellationToken: cancellationToken);
+
+      if (token == null) return null; // string.Empty;
+
+      return token.Value;
+    }
+  }
 }

@@ -3,10 +3,11 @@ using OH.DI.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using IdentityUI = Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace OH.DI.Infrastructure;
 
-public class EmailSender : IEmailSender
+public class EmailSender : IEmailSender, IdentityUI.IEmailSender 
 {
   private readonly ILogger<EmailSender> _logger;
 
@@ -41,5 +42,10 @@ public class EmailSender : IEmailSender
     var htmlContent = htmlMessage;
     var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
     var response = await client.SendEmailAsync(msg);
+  }
+
+  async Task IdentityUI.IEmailSender.SendEmailAsync(string email, string subject, string htmlMessage)
+  {
+    await Execute(email, subject, htmlMessage);
   }
 }
