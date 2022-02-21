@@ -18,6 +18,11 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+  googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+  googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+});
 //string connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  
 //Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddCosmosDbContext(builder.Configuration.GetSection(nameof(CosmosSettings)));

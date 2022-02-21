@@ -8,6 +8,7 @@
     <WebProjectMode>true</WebProjectMode>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>65cb354d-54d2-4257-a20e-24fb3bbb9bb4</UserSecretsId>
   </PropertyGroup>
   
   <ItemGroup>
@@ -16,6 +17,7 @@
     <PackageReference Include="Ardalis.Result" Version="3.1.2" />
     <PackageReference Include="Ardalis.Result.AspNetCore" Version="3.0.1" />
     <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="6.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" Version="6.0.1" />
