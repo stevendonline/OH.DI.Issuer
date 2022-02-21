@@ -9,16 +9,27 @@ using System.Threading.Tasks;
 
 namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
 {
-    internal class CosmosUserStore<TUserEntity> : //UserStoreBase<TUserEntity>,
+    internal class CosmosUserStore<TUserEntity, TKey, TUserClaim, TUserLogin, TUserToken> :
         IUserStore<TUserEntity>,
         IUserRoleStore<TUserEntity>,
         IUserEmailStore<TUserEntity>,
         IUserPasswordStore<TUserEntity>,
         IUserPhoneNumberStore<TUserEntity>,
         IUserLoginStore<TUserEntity>,
-        IUserAuthenticatorKeyStore<TUserEntity> where TUserEntity : IdentityUser, new()
-    {
+        IUserAuthenticatorKeyStore<TUserEntity>,
+        IUserTwoFactorStore<TUserEntity>,
+        IUserTwoFactorRecoveryCodeStore<TUserEntity>
+        where TUserEntity : IdentityUser<TKey>, new()
+        where TKey : IEquatable<TKey>
+        where TUserClaim : IdentityUserClaim<TKey>, new()
+        where TUserLogin : IdentityUserLogin<TKey>, new()
+        where TUserToken : IdentityUserToken<TKey>, new()
+  {
         private readonly IRepository _repo;
+
+        private const string InternalLoginProvider = "[CosmosUserStore]";
+        private const string AuthenticatorKeyTokenName = "AuthenticatorKey";
+        private const string RecoveryCodeTokenName = "RecoveryCodes";
 
         public CosmosUserStore(IRepository repo)
         {
@@ -254,7 +265,7 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
 
             try
             {
-                IdentityUserLogin<string> loginEntity = new IdentityUserLogin<string>
+                IdentityUserLogin<TKey> loginEntity = new IdentityUserLogin<TKey>
                 {
                     UserId = user.Id,
                     LoginProvider = login.LoginProvider,
@@ -278,9 +289,9 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
 
             try
             {
-                var login = await _repo.Table<IdentityUserLogin<string>>()
+                var login = await _repo.Table<IdentityUserLogin<TKey>>()
                     .SingleOrDefaultAsync(l =>
-                        l.UserId == user.Id &&
+                        l.UserId.Equals(user.Id) &&
                         l.LoginProvider == loginProvider &&
                         l.ProviderKey == providerKey
                     );
@@ -302,8 +313,8 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
                 throw new ArgumentNullException(nameof(user));
 
             IList<UserLoginInfo> res = _repo
-                .Table<IdentityUserLogin<string>>()
-                .Where(l => l.UserId == user.Id)
+                .Table<IdentityUserLogin<TKey>>()
+                .Where(l => l.UserId.Equals(user.Id))
                 .Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, user.UserName)
                 {
                     ProviderDisplayName = l.ProviderDisplayName
@@ -336,14 +347,14 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
             if (user == null) throw new ArgumentNullException(nameof(user));
             if (string.IsNullOrWhiteSpace(roleName)) throw new ArgumentNullException(nameof(roleName));
 
-            var role = await _repo.Table<IdentityRole>()
+            var role = await _repo.Table<IdentityRole<TKey>>()
                 .SingleOrDefaultAsync(_ => _.NormalizedName == roleName.ToLower(), cancellationToken: cancellationToken);
 
             if (role == null) throw new InvalidOperationException("Role not found.");
 
             try
             {
-                IdentityUserRole<string> userRole = new IdentityUserRole<string>
+                IdentityUserRole<TKey> userRole = new IdentityUserRole<TKey>
                 {
                     RoleId = role.Id,
                     UserId = user.Id
@@ -362,12 +373,12 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
             if (user == null) throw new ArgumentNullException(nameof(user));
             if (string.IsNullOrWhiteSpace(roleName)) throw new ArgumentNullException(nameof(roleName));
 
-            var role = await _repo.Table<IdentityRole>()
+            var role = await _repo.Table<IdentityRole<TKey>>()
                 .SingleOrDefaultAsync(_ => _.NormalizedName == roleName, cancellationToken: cancellationToken);
 
             if (role != null)
             {
-                var userRole = await _repo.Table<IdentityUserRole<string>>().SingleOrDefaultAsync(_ => _.RoleId == role.Id, cancellationToken);
+                var userRole = await _repo.Table<IdentityUserRole<string>>().SingleOrDefaultAsync(_ => _.RoleId.Equals(role.Id), cancellationToken);
                 if (userRole != null)
                 {
                     _repo.Delete(userRole);
@@ -384,13 +395,13 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
                 throw new ArgumentNullException(nameof(user));
 
             var roleIds = await _repo
-                .Table<IdentityUserRole<string>>()
-                .Where(m => m.UserId == user.Id)
+                .Table<IdentityUserRole<TKey>>()
+                .Where(m => m.UserId.Equals(user.Id))
                 .Select(m => m.RoleId)
                 .ToListAsync(cancellationToken);
 
             IList<string> res = await _repo
-                .Table<IdentityRole>()
+                .Table<IdentityRole<TKey>>()
                 .Where(m => roleIds.Contains(m.Id))
                 .Select(m => m.Name)
                 .ToListAsync(cancellationToken);
@@ -405,13 +416,13 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
             if (user == null) throw new ArgumentNullException(nameof(user));
             if (string.IsNullOrWhiteSpace(roleName)) throw new ArgumentNullException(nameof(roleName));
 
-            var role = await _repo.Table<IdentityRole>()
+            var role = await _repo.Table<IdentityRole<TKey>>()
                 .SingleOrDefaultAsync(_ => _.NormalizedName == roleName, cancellationToken: cancellationToken);
 
             if (role != null)
             {
-                var userRole = await _repo.Table<IdentityUserRole<string>>()
-                    .SingleOrDefaultAsync(_ => _.RoleId == role.Id && _.UserId == user.Id, cancellationToken);
+                var userRole = await _repo.Table<IdentityUserRole<TKey>>()
+                    .SingleOrDefaultAsync(_ => _.RoleId.Equals(role.Id) && _.UserId.Equals(user.Id), cancellationToken);
 
                 return userRole != null;
             }
@@ -425,13 +436,13 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
 
             if (string.IsNullOrWhiteSpace(roleName)) throw new ArgumentNullException(nameof(roleName));
 
-            var role = await _repo.Table<IdentityRole>()
+            var role = await _repo.Table<IdentityRole<TKey>>()
                             .SingleOrDefaultAsync(_ => _.NormalizedName == roleName, cancellationToken: cancellationToken);
 
             if (role != null)
             {
-                var userIds = await _repo.Table<IdentityUserRole<string>>()
-                    .Where(m => m.RoleId == role.Id)
+                var userIds = await _repo.Table<IdentityUserRole<TKey>>()
+                    .Where(m => m.RoleId.Equals(role.Id))
                     .Select(m => m.UserId)
                     .ToListAsync(cancellationToken);
 
@@ -457,10 +468,12 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
 
       try
       {
-        IdentityUserToken<string> userToken = new IdentityUserToken<string>
+        IdentityUserToken<TKey> userToken = new IdentityUserToken<TKey>
         {
           UserId = user.Id,
-          Value = key
+          Value = key,
+          LoginProvider = InternalLoginProvider,
+          Name = AuthenticatorKeyTokenName
         };
 
         _repo.Add(userToken);
@@ -469,18 +482,143 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Stores
       catch { }
     }
 
-    public async Task<string> GetAuthenticatorKeyAsync(TUserEntity user, CancellationToken cancellationToken)
+    public Task<string> GetAuthenticatorKeyAsync(TUserEntity user, CancellationToken cancellationToken)
+      => GetTokenAsync(user, InternalLoginProvider, AuthenticatorKeyTokenName, cancellationToken);
+
+    public Task SetTwoFactorEnabledAsync(TUserEntity user, bool enabled, CancellationToken cancellationToken)
+    {
+      SetUserProperty(user, enabled, (u, m) => u.TwoFactorEnabled = enabled, cancellationToken);
+      return Task.CompletedTask;
+    }
+
+    public Task<bool> GetTwoFactorEnabledAsync(TUserEntity user, CancellationToken cancellationToken)
+    {
+      return Task.FromResult(
+                GetUserProperty(user, user => user.TwoFactorEnabled, cancellationToken));
+    }
+
+    public Task ReplaceCodesAsync(TUserEntity user, IEnumerable<string> recoveryCodes, CancellationToken cancellationToken)
+    {
+      var mergedCodes = string.Join(";", recoveryCodes);
+      return SetTokenAsync(user, InternalLoginProvider, RecoveryCodeTokenName, mergedCodes, cancellationToken);
+    }
+
+    public async Task<bool> RedeemCodeAsync(TUserEntity user, string code, CancellationToken cancellationToken)
     {
       cancellationToken.ThrowIfCancellationRequested();
+      //ThrowIfDisposed();
 
-      if (user == null) throw new ArgumentNullException(nameof(user));
+      if (user == null)
+      {
+        throw new ArgumentNullException(nameof(user));
+      }
+      if (code == null)
+      {
+        throw new ArgumentNullException(nameof(code));
+      }
 
-      var token = await _repo.Table<IdentityUserToken<string>>()
-        .SingleOrDefaultAsync(_ => _.UserId == user.Id, cancellationToken: cancellationToken);
-
-      if (token == null) return null; // string.Empty;
-
-      return token.Value;
+      var mergedCodes = await GetTokenAsync(user, InternalLoginProvider, RecoveryCodeTokenName, cancellationToken) ?? "";
+      var splitCodes = mergedCodes.Split(';');
+      if (splitCodes.Contains(code))
+      {
+        var updatedCodes = new List<string>(splitCodes.Where(s => s != code));
+        await ReplaceCodesAsync(user, updatedCodes, cancellationToken);
+        return true;
+      }
+      return false;
     }
+
+    public async Task<int> CountCodesAsync(TUserEntity user, CancellationToken cancellationToken)
+    {
+      cancellationToken.ThrowIfCancellationRequested();
+      //ThrowIfDisposed();
+
+      if (user == null)
+      {
+        throw new ArgumentNullException(nameof(user));
+      }
+      var mergedCodes = await GetTokenAsync(user, InternalLoginProvider, RecoveryCodeTokenName, cancellationToken) ?? "";
+      if (mergedCodes.Length > 0)
+      {
+        return mergedCodes.Split(';').Length;
+      }
+      return 0;
+    }
+
+    public virtual async Task SetTokenAsync(TUserEntity user, string loginProvider, string name, string value, CancellationToken cancellationToken)
+    {
+      cancellationToken.ThrowIfCancellationRequested();
+      //ThrowIfDisposed();
+
+      if (user == null)
+      {
+        throw new ArgumentNullException(nameof(user));
+      }
+
+      var token = await FindTokenAsync(user, loginProvider, name, cancellationToken);
+      if (token == null)
+      {
+        await AddUserTokenAsync(CreateUserToken(user, loginProvider, name, value));
+      }
+      else
+      {
+        token.Value = value;
+      }
+    }
+
+    protected virtual TUserToken CreateUserToken(TUserEntity user, string loginProvider, string name, string value)
+    {
+      return new TUserToken
+      {
+        UserId = user.Id,
+        LoginProvider = loginProvider,
+        Name = name,
+        Value = value
+      };
+    }
+
+    protected async Task AddUserTokenAsync(TUserToken token)
+    {
+      _repo.Add(token);
+      await _repo.SaveChangesAsync();
+    }
+
+    protected Task RemoveUserTokenAsync(TUserToken token)
+    {
+      _repo.Delete(token);
+      return Task.CompletedTask;
+    }
+
+    public virtual async Task<string> GetTokenAsync(TUserEntity user, string loginProvider, string name, CancellationToken cancellationToken)
+    {
+      cancellationToken.ThrowIfCancellationRequested();
+      //ThrowIfDisposed();
+
+      if (user == null)
+      {
+        throw new ArgumentNullException(nameof(user));
+      }
+      var entry = await FindTokenAsync(user, loginProvider, name, cancellationToken);
+      return entry?.Value;
+    }
+
+    protected async Task<TUserToken> FindTokenAsync(TUserEntity user, string loginProvider, string name, CancellationToken cancellationToken)
+    {
+      var token = await _repo.Table<IdentityUserToken<TKey>>()
+        .SingleOrDefaultAsync(_ => _.UserId.Equals(user.Id) && _.LoginProvider == loginProvider && _.Name == name, cancellationToken: cancellationToken);
+
+      if (token != null)
+      {
+        return new TUserToken
+        {
+          UserId = user.Id,
+          LoginProvider = loginProvider,
+          Name = name,
+          Value = token.Value 
+        };
+      }
+      return null;
+    }
+    
   }
 }

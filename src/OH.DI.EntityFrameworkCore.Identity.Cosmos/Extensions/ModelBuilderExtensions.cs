@@ -11,6 +11,7 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Extensions
             builder.ApplyConfiguration(new UserEntityTypeConfiguration<TUserEntity> { });
             builder.ApplyConfiguration(new UserRoleEntityTypeConfiguration { });
             builder.ApplyConfiguration(new RoleEntityTypeConfiguration { });
+            builder.ApplyConfiguration(new RoleEntityTypeConfiguration2 { });
             builder.ApplyConfiguration(new RoleClaimEntityTypeConfiguration { });
             builder.ApplyConfiguration(new UserClaimEntityTypeConfiguration { });
             builder.ApplyConfiguration(new UserLoginEntityTypeConfiguration { });

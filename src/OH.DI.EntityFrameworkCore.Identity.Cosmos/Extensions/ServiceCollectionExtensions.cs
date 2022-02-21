@@ -31,7 +31,7 @@ namespace OH.DI.EntityFrameworkCore.Identity.Cosmos.Extensions
                 builder.AddDefaultTokenProviders();
 
             // Add custom Identity stores
-            services.AddTransient<IUserStore<TUserEntity>, CosmosUserStore<TUserEntity>>();
+            services.AddTransient<IUserStore<TUserEntity>, CosmosUserStore<TUserEntity, string, IdentityUserClaim<string>, IdentityUserLogin<string>, IdentityUserToken<string>>>();
             services.AddTransient<IRoleStore<TRoleEntity>, CosmosRoleStore<TRoleEntity>>();
 
             // Add repository service
