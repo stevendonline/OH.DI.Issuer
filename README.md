@@ -17,7 +17,7 @@
   * [Domain Events](#domain-events)
   * [Related Projects](#related-projects)
 
-## Learn More
+## Learn More about clean architecture
 
 - [DotNetRocks Podcast Discussion with Steve "ardalis" Smith](https://player.fm/series/net-rocks/clean-architecture-with-steve-smith)
 
