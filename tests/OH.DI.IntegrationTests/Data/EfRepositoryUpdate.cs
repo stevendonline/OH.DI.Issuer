@@ -6,7 +6,7 @@ namespace OH.DI.IntegrationTests.Data;
 
 public class EfRepositoryUpdate : BaseEfRepoTestFixture
 {
-  [Fact]
+  //[Fact]
   public async Task UpdatesItemAfterAddingIt()
   {
     // add a project

@@ -5,7 +5,7 @@ namespace OH.DI.IntegrationTests.Data;
 
 public class EfRepositoryAdd : BaseEfRepoTestFixture
 {
-  [Fact]
+  //[Fact]
   public async Task AddsProjectAndSetsId()
   {
     var testProjectName = "testProject";
