@@ -1,4 +1,5 @@
 # Ontario Health Digital Identity Web app
+[![.NET Core](https://github.com/stevendonline/OH.DI.Issuer/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/stevendonline/OH.DI.Issuer/actions/workflows/dotnetcore.yml)
 
 ## Table Of Contents
 
