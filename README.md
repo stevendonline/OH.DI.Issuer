@@ -1,4 +1,4 @@
-# Ontario Heahlth Digital Identity Architecture
+# Ontario Health Digital Identity Web app
 
 ## Table Of Contents
 
