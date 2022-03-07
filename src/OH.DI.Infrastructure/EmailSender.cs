@@ -4,16 +4,19 @@ using Microsoft.Extensions.Logging;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using IdentityUI = Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace OH.DI.Infrastructure;
 
 public class EmailSender : IEmailSender, IdentityUI.IEmailSender 
 {
   private readonly ILogger<EmailSender> _logger;
+  private readonly IConfiguration _config;
 
-  public EmailSender(ILogger<EmailSender> logger)
+  public EmailSender(ILogger<EmailSender> logger, IConfiguration config)
   {
     _logger = logger;
+    _config = config;
   }
 
   public async Task SendEmailAsync(string to, string from, string subject, string body)
@@ -27,13 +30,14 @@ public class EmailSender : IEmailSender, IdentityUI.IEmailSender
     };
     message.To.Add(new MailAddress(to));
     await emailClient.SendMailAsync(message); */
-    await Execute(to, subject, body);
+    var apiKey = _config["SENDGRID_API_KEY"];
+    await Execute(to, subject, body, apiKey);
     _logger.LogWarning($"Sending email to {to} from {from} with subject {subject}.");    
   }
 
-  static async Task Execute(string toEmail, string sub, string htmlMessage)
+  static async Task Execute(string toEmail, string sub, string htmlMessage, string apiKey)
   {
-    var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+    //var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");    
     var client = new SendGridClient(apiKey);
     var from = new EmailAddress("stevend_online@hotmail.com", "Example User");
     var subject = sub;
@@ -46,6 +50,7 @@ public class EmailSender : IEmailSender, IdentityUI.IEmailSender
 
   async Task IdentityUI.IEmailSender.SendEmailAsync(string email, string subject, string htmlMessage)
   {
-    await Execute(email, subject, htmlMessage);
+    var apiKey = _config["SENDGRID_API_KEY"];
+    await Execute(email, subject, htmlMessage, apiKey);
   }
 }
