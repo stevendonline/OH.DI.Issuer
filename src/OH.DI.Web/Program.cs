@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 if (builder.Environment.IsProduction())
 {
   builder.Configuration.AddAzureKeyVault(
-      new Uri($"https://{builder.Configuration["OHDIFunctionAppvault"]}.vault.azure.net/"),
+      new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
       new DefaultAzureCredential());
 }
 
