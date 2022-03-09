@@ -30,7 +30,7 @@ public class EmailSender : IEmailSender, IdentityUI.IEmailSender
     };
     message.To.Add(new MailAddress(to));
     await emailClient.SendMailAsync(message); */
-    var apiKey = _config["SENDGRID_API_KEY"];
+    var apiKey = _config["SENDGRIDAPIKEY"];
     await Execute(to, subject, body, apiKey);
     _logger.LogWarning($"Sending email to {to} from {from} with subject {subject}.");    
   }
@@ -50,7 +50,7 @@ public class EmailSender : IEmailSender, IdentityUI.IEmailSender
 
   async Task IdentityUI.IEmailSender.SendEmailAsync(string email, string subject, string htmlMessage)
   {
-    var apiKey = _config["SENDGRID_API_KEY"];
+    var apiKey = _config["SENDGRIDAPIKEY"];
     await Execute(email, subject, htmlMessage, apiKey);
   }
 }

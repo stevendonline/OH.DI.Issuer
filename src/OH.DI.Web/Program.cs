@@ -7,8 +7,16 @@ using OH.DI.Infrastructure.Data;
 using OH.DI.Web;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+if (builder.Environment.IsProduction())
+{
+  builder.Configuration.AddAzureKeyVault(
+      new Uri($"https://{builder.Configuration["OHDIFunctionAppvault"]}.vault.azure.net/"),
+      new DefaultAzureCredential());
+}
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
