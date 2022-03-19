@@ -1,14 +1,14 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using Xunit;
 
-namespace OH.DI.UnitTests.Core.ProjectAggregate;
+namespace OH.DI.UnitTests.Core.DigitalCredentialAggregate;
 
 public class DigitalCredentialConstructor
 {
   private string _testName = "test name";
-  private DigitalCredential? _testProject;
+  private DigitalCredential? _testDigitalCredential;
 
-  private DigitalCredential CreateProject()
+  private DigitalCredential CreateDigitalCredential()
   {
     return new DigitalCredential("1", _testName);
   }
@@ -16,24 +16,24 @@ public class DigitalCredentialConstructor
   [Fact]
   public void InitializesName()
   {
-    _testProject = CreateProject();
+    _testDigitalCredential = CreateDigitalCredential();
 
-    Assert.Equal(_testName, _testProject.Name);
+    Assert.Equal(_testName, _testDigitalCredential.Name);
   }
 
   [Fact]
   public void InitializesTaskListToEmptyList()
   {
-    _testProject = CreateProject();
+    _testDigitalCredential = CreateDigitalCredential();
 
-    Assert.NotNull(_testProject.Items);
+    Assert.NotNull(_testDigitalCredential.Items);
   }
 
   [Fact]
   public void InitializesStatusToInProgress()
   {
-    _testProject = CreateProject();
+    _testDigitalCredential = CreateDigitalCredential();
 
-    Assert.Equal(DigitalCredentialStatus.Complete, _testProject.Status);
+    Assert.Equal(DigitalCredentialStatus.Complete, _testDigitalCredential.Status);
   }
 }

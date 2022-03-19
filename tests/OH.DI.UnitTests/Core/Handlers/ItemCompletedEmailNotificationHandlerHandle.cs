@@ -1,7 +1,7 @@
 ﻿using OH.DI.Core.Interfaces;
-using OH.DI.Core.ProjectAggregate;
-using OH.DI.Core.ProjectAggregate.Events;
-using OH.DI.Core.ProjectAggregate.Handlers;
+using OH.DI.Core.DigitalCredentialAggregate;
+using OH.DI.Core.DigitalCredentialAggregate.Events;
+using OH.DI.Core.DigitalCredentialAggregate.Handlers;
 using Moq;
 using Xunit;
 

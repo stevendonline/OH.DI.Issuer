@@ -1,4 +1,4 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

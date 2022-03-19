@@ -1,10 +1,10 @@
 ﻿using Ardalis.Result;
-using OH.DI.Core.ProjectAggregate;
+using OH.DI.Core.DigitalCredentialAggregate;
 
 namespace OH.DI.Core.Interfaces;
 
 public interface IToDoItemSearchService
 {
-  Task<Result<ToDoItem>> GetNextIncompleteItemAsync(string projectId);
-  Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string projectId, string searchString);
+  Task<Result<ToDoItem>> GetNextIncompleteItemAsync(string DigitalCredentialId);
+  Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string DigitalCredentialId, string searchString);
 }

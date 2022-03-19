@@ -1,4 +1,4 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using Xunit;
 
 namespace OH.DI.IntegrationTests.Data;
@@ -6,18 +6,18 @@ namespace OH.DI.IntegrationTests.Data;
 public class EfRepositoryAdd : BaseEfRepoTestFixture
 {
   //[Fact]
-  public async Task AddsProjectAndSetsId()
+  public async Task AddsDigitalCredentialAndSetsId()
   {
-    var testProjectName = "testProject";
+    var testDigitalCredentialName = "testDigitalCredential";
     var repository = GetRepository();
-    var project = new DigitalCredential("1", testProjectName);
+    var DigitalCredential = new DigitalCredential("1", testDigitalCredentialName);
 
-    await repository.AddAsync(project);
+    await repository.AddAsync(DigitalCredential);
 
-    var newProject = (await repository.ListAsync())
+    var newDigitalCredential = (await repository.ListAsync())
                     .FirstOrDefault();
 
-    Assert.Equal(testProjectName, newProject?.Name);
-    //Assert.True(newProject?.Id > 0);
+    Assert.Equal(testDigitalCredentialName, newDigitalCredential?.Name);
+    //Assert.True(newDigitalCredential?.Id > 0);
   }
 }

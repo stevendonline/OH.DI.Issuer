@@ -1,7 +1,7 @@
-﻿using OH.DI.Core.ProjectAggregate.Events;
+﻿using OH.DI.Core.DigitalCredentialAggregate.Events;
 using Xunit;
 
-namespace OH.DI.UnitTests.Core.ProjectAggregate;
+namespace OH.DI.UnitTests.Core.DigitalCredentialAggregate;
 
 public class ToDoItemMarkComplete
 {

@@ -1,14 +1,14 @@
 ﻿using Ardalis.Specification;
-using OH.DI.Core.ProjectAggregate;
+using OH.DI.Core.DigitalCredentialAggregate;
 
-namespace OH.DI.Core.ProjectAggregate.Specifications;
+namespace OH.DI.Core.DigitalCredentialAggregate.Specifications;
 
-public class ProjectByIdWithItemsSpec : Specification<DigitalCredential>, ISingleResultSpecification
+public class DigitalCredentialByIdWithItemsSpec : Specification<DigitalCredential>, ISingleResultSpecification
 {
-  public ProjectByIdWithItemsSpec(string projectId)
+  public DigitalCredentialByIdWithItemsSpec(string DigitalCredentialId)
   {
     Query
-        .Where(project => project.Id == projectId);
-        //.Include(project => project.Items);
+        .Where(DigitalCredential => DigitalCredential.Id == DigitalCredentialId);
+        //.Include(DigitalCredential => DigitalCredential.Items);
   }
 }

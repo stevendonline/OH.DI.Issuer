@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using OH.DI.Core.ProjectAggregate;
+using OH.DI.Core.DigitalCredentialAggregate;
 
 namespace OH.DI.Web.ApiModels;
 

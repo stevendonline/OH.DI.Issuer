@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
 using OH.DI.Core.Interfaces;
-using OH.DI.Core.ProjectAggregate;
+using OH.DI.Core.DigitalCredentialAggregate;
 using OH.DI.Infrastructure.Data;
 using OH.DI.SharedKernel.Interfaces;
 using MediatR;
@@ -18,7 +18,7 @@ public class DefaultInfrastructureModule : Module
   public DefaultInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
   {
     _isDevelopment = isDevelopment;
-    var coreAssembly = Assembly.GetAssembly(typeof(DigitalCredential)); // TODO: Replace "Project" with any type from your Core project
+    var coreAssembly = Assembly.GetAssembly(typeof(DigitalCredential)); // TODO: Replace "DigitalCredential" with any type from your Core DigitalCredential
     var infrastructureAssembly = Assembly.GetAssembly(typeof(StartupSetup));
     if (coreAssembly != null)
     {

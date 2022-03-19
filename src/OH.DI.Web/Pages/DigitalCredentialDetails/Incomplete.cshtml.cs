@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OH.DI.Core.ProjectAggregate;
-using OH.DI.Core.ProjectAggregate.Specifications;
+using OH.DI.Core.DigitalCredentialAggregate;
+using OH.DI.Core.DigitalCredentialAggregate.Specifications;
 using OH.DI.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -21,14 +21,14 @@ public class IncompleteModel : PageModel
 
   public async Task OnGetAsync()
   {
-    var projectSpec = new ProjectByIdWithItemsSpec("1"); // TODO: get from route
-    var project = await _repository.GetBySpecAsync(projectSpec);
-    if (project == null)
+    var DigitalCredentialSpec = new DigitalCredentialByIdWithItemsSpec("1"); // TODO: get from route
+    var DigitalCredential = await _repository.GetBySpecAsync(DigitalCredentialSpec);
+    if (DigitalCredential == null)
     {
       return;
     }
     var spec = new IncompleteItemsSpec();
 
-    ToDoItems = spec.Evaluate(project.Items).ToList();
+    ToDoItems = spec.Evaluate(DigitalCredential.Items).ToList();
   }
 }

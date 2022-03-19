@@ -1,9 +1,9 @@
 ﻿using Ardalis.GuardClauses;
-using OH.DI.Core.ProjectAggregate.Events;
+using OH.DI.Core.DigitalCredentialAggregate.Events;
 using OH.DI.SharedKernel;
 using OH.DI.SharedKernel.Interfaces;
 
-namespace OH.DI.Core.ProjectAggregate;
+namespace OH.DI.Core.DigitalCredentialAggregate;
 
 public class DigitalCredential : BaseEntity, IAggregateRoot
 {

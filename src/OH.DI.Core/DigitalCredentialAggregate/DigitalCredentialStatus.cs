@@ -1,4 +1,4 @@
-﻿namespace OH.DI.Core.ProjectAggregate;
+﻿namespace OH.DI.Core.DigitalCredentialAggregate;
 
 public enum DigitalCredentialStatus
 {

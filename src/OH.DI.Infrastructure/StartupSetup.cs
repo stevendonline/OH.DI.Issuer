@@ -11,7 +11,7 @@ public static class StartupSetup
 {
   //public static void AddDbContext(this IServiceCollection services, string connectionString) =>
   //    services.AddDbContext<AppDbContext>(options =>
-  //        options.UseSqlite(connectionString)); // will be created in web project root
+  //        options.UseSqlite(connectionString)); // will be created in web DigitalCredential root
   //static string _connStr = "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
   //static string _dbName = "didb";
   public static void AddCosmosDbContext(this IServiceCollection services, IConfiguration config)

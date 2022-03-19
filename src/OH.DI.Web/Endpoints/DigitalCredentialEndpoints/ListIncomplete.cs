@@ -3,7 +3,7 @@ using OH.DI.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace OH.DI.Web.Endpoints.ProjectEndpoints;
+namespace OH.DI.Web.Endpoints.DigitalCredentialEndpoints;
 
 public class ListIncomplete : EndpointBaseAsync
     .WithRequest<ListIncompleteRequest>
@@ -16,12 +16,12 @@ public class ListIncomplete : EndpointBaseAsync
     _searchService = searchService;
   }
 
-  [HttpGet("/Projects/{ProjectId}/IncompleteItems")]
+  [HttpGet("/DigitalCredentials/{DigitalCredentialId}/IncompleteItems")]
   [SwaggerOperation(
-      Summary = "Gets a list of a project's incomplete items",
-      Description = "Gets a list of a project's incomplete items",
-      OperationId = "Project.ListIncomplete",
-      Tags = new[] { "ProjectEndpoints" })
+      Summary = "Gets a list of a digital credential's incomplete items",
+      Description = "Gets a list of a digital credential's incomplete items",
+      OperationId = "DigitalCredential.ListIncomplete",
+      Tags = new[] { "DigitalCredentialEndpoints" })
   ]
   public override async Task<ActionResult<ListIncompleteResponse>> HandleAsync([FromQuery] ListIncompleteRequest request, CancellationToken cancellationToken)
   {
@@ -30,11 +30,11 @@ public class ListIncomplete : EndpointBaseAsync
       return BadRequest();
     }
     var response = new ListIncompleteResponse(1.ToString(), new List<ToDoItemRecord>());
-    var result = await _searchService.GetAllIncompleteItemsAsync(request.ProjectId, request.SearchString);
+    var result = await _searchService.GetAllIncompleteItemsAsync(request.DigitalCredentialId, request.SearchString);
 
     if (result.Status == Ardalis.Result.ResultStatus.Ok)
     {
-      response.ProjectId = request.ProjectId;
+      response.DigitalCredentialId = request.DigitalCredentialId;
       response.IncompleteItems = new List<ToDoItemRecord>(
               result.Value.Select(
                   item => new ToDoItemRecord(item.Id,

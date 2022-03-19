@@ -1,4 +1,4 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -9,37 +9,37 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
   //[Fact]
   public async Task UpdatesItemAfterAddingIt()
   {
-    // add a project
+    // add a DigitalCredential
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new DigitalCredential("1", initialName);
+    var DigitalCredential = new DigitalCredential("1", initialName);
 
-    await repository.AddAsync(project);
+    await repository.AddAsync(DigitalCredential);
 
     // detach the item so we get a different instance
-    _dbContext.Entry(project).State = EntityState.Detached;
+    _dbContext.Entry(DigitalCredential).State = EntityState.Detached;
 
     // fetch the item and update its title
-    var newProject = (await repository.ListAsync())
-        .FirstOrDefault(project => project.Name == initialName);
-    if (newProject == null)
+    var newDigitalCredential = (await repository.ListAsync())
+        .FirstOrDefault(DigitalCredential => DigitalCredential.Name == initialName);
+    if (newDigitalCredential == null)
     {
-      Assert.NotNull(newProject);
+      Assert.NotNull(newDigitalCredential);
       return;
     }
-    Assert.NotSame(project, newProject);
+    Assert.NotSame(DigitalCredential, newDigitalCredential);
     var newName = Guid.NewGuid().ToString();
-    newProject.UpdateName(newName);
+    newDigitalCredential.UpdateName(newName);
 
     // Update the item
-    await repository.UpdateAsync(newProject);
+    await repository.UpdateAsync(newDigitalCredential);
 
     // Fetch the updated item
     var updatedItem = (await repository.ListAsync())
-        .FirstOrDefault(project => project.Name == newName);
+        .FirstOrDefault(DigitalCredential => DigitalCredential.Name == newName);
 
     Assert.NotNull(updatedItem);
-    Assert.NotEqual(project.Name, updatedItem?.Name);
-    Assert.Equal(newProject.Id, updatedItem?.Id);
+    Assert.NotEqual(DigitalCredential.Name, updatedItem?.Name);
+    Assert.Equal(newDigitalCredential.Id, updatedItem?.Id);
   }
 }

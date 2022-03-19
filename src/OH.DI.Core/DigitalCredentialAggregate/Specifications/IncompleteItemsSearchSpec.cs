@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace OH.DI.Core.ProjectAggregate.Specifications;
+namespace OH.DI.Core.DigitalCredentialAggregate.Specifications;
 
 public class IncompleteItemsSearchSpec : Specification<ToDoItem>
 {

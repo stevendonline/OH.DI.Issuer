@@ -1,5 +1,5 @@
 ﻿using Ardalis.EFCore.Extensions;
-using OH.DI.Core.ProjectAggregate;
+using OH.DI.Core.DigitalCredentialAggregate;
 using OH.DI.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -26,8 +26,8 @@ public class AppDbContext : CosmosIdentityDbContext<ApplicationUser>
 
   //public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
   public DbSet<ToDoItem> ToDoItems { get; set; }
-  //public DbSet<Project> Projects => Set<Project>();
-  public DbSet<DigitalCredential> Projects { get; set; }
+  //public DbSet<DigitalCredential> DigitalCredentials => Set<DigitalCredential>();
+  public DbSet<DigitalCredential> DigitalCredentials { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

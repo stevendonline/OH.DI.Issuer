@@ -1,4 +1,4 @@
-﻿@page "{ProjectId}"
+﻿@page "{DigitalCredentialId}"
 @model OH.DI.Web.Pages.ToDoRazorPage.IndexModel
 
 @if (!String.IsNullOrEmpty(Model.Message))
@@ -8,16 +8,16 @@
 else
 {
 
-<h2>Project (Razor Page)</h2>
+<h2>DigitalCredential (Razor Page)</h2>
 
-<h3>Name: @Model.Project?.Name</h3>
+<h3>Name: @Model.DigitalCredential?.Name</h3>
 
 <b>Items:</b>
 
     <ul>
-        @if (Model.Project != null)
+        @if (Model.DigitalCredential != null)
         {
-            @foreach (var item in Model.Project.Items)
+            @foreach (var item in Model.DigitalCredential.Items)
             {
                 <li>
                     @item.Title

@@ -1,5 +1,5 @@
-﻿using OH.DI.Core.ProjectAggregate;
-using OH.DI.Core.ProjectAggregate.Specifications;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
+using OH.DI.Core.DigitalCredentialAggregate.Specifications;
 using OH.DI.SharedKernel.Interfaces;
 using OH.DI.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +13,10 @@ namespace OH.DI.Issuer.Web.Pages.LinkmyHealthCard
     private readonly IRepository<DigitalCredential> _repository;
 
     [BindProperty(SupportsGet = true)]
-    public string ProjectId { get; set; }
+    public string DigitalCredentialId { get; set; }
     public string Message { get; set; } = "";
 
-    public ProjectDTO? Project { get; set; }
+    public DigitalCredentialDTO? DigitalCredential { get; set; }
 
     public IndexModel(IRepository<DigitalCredential> repository)
     {
@@ -25,20 +25,20 @@ namespace OH.DI.Issuer.Web.Pages.LinkmyHealthCard
 
     public async Task OnGetAsync()
     {
-      var projectSpec = new ProjectByIdWithItemsSpec(ProjectId);
-      var project = await _repository.GetBySpecAsync(projectSpec);
+      var digitalCredentialSpec = new DigitalCredentialByIdWithItemsSpec(DigitalCredentialId);
+      var digitalCredential = await _repository.GetBySpecAsync(digitalCredentialSpec);
 
-      if (project == null)
+      if (digitalCredential == null)
       {
-        Message = "No project found.";
+        Message = "No DigitalCredential found.";
         return;
       }
 
-      Project = new ProjectDTO
+      DigitalCredential = new DigitalCredentialDTO
       (
-          id: project.Id,
-          name: project.Name,
-          items: project.Items
+          id: digitalCredential.Id,
+          name: digitalCredential.Name,
+          items: digitalCredential.Items
           .Select(item => ToDoItemDTO.FromToDoItem(item))
           .ToList()
       );

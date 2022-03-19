@@ -1,5 +1,5 @@
-﻿using OH.DI.Core.ProjectAggregate;
-using OH.DI.Core.ProjectAggregate.Specifications;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
+using OH.DI.Core.DigitalCredentialAggregate.Specifications;
 using Xunit;
 
 namespace OH.DI.UnitTests.Core.Specifications;

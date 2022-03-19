@@ -1,5 +1,5 @@
-﻿using OH.DI.Core.ProjectAggregate;
-using OH.DI.Core.ProjectAggregate.Specifications;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
+using OH.DI.Core.DigitalCredentialAggregate.Specifications;
 using OH.DI.SharedKernel.Interfaces;
 using OH.DI.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
@@ -21,74 +21,74 @@ public class DigitalCredentialsController : BaseApiController
     _itemRep = itemRep;
   }
 
-  // GET: api/Projects
+  // GET: api/DigitalCredentials
   [HttpGet]
   public async Task<IActionResult> List()
   {
-    var projectDTOs = (await _repository.ListAsync())
-        .Select(project => new ProjectDTO
+    var DigitalCredentialDTOs = (await _repository.ListAsync())
+        .Select(DigitalCredential => new DigitalCredentialDTO
         (
-            id: project.Id,
-            name: project.Name
+            id: DigitalCredential.Id,
+            name: DigitalCredential.Name
         ))
         .ToList();
 
-    return Ok(projectDTOs);
+    return Ok(DigitalCredentialDTOs);
   }
 
-  // GET: api/Projects
+  // GET: api/DigitalCredentials
   [HttpGet("{id}")]
   public async Task<IActionResult> GetById(string id)
   {
-    var projectSpec = new ProjectByIdWithItemsSpec(id);
-    var project = await _repository.GetBySpecAsync(projectSpec);
-    if (project == null)
+    var DigitalCredentialSpec = new DigitalCredentialByIdWithItemsSpec(id);
+    var DigitalCredential = await _repository.GetBySpecAsync(DigitalCredentialSpec);
+    if (DigitalCredential == null)
     {
       return NotFound();
     }
 
-    var result = new ProjectDTO
+    var result = new DigitalCredentialDTO
     (
-        id: project.Id,
-        name: project.Name,
+        id: DigitalCredential.Id,
+        name: DigitalCredential.Name,
         items: new List<ToDoItemDTO>
         (
-            project.Items.Select(i => ToDoItemDTO.FromToDoItem(i)).ToList()
+            DigitalCredential.Items.Select(i => ToDoItemDTO.FromToDoItem(i)).ToList()
         )
     );
 
     return Ok(result);
   }
 
-  // POST: api/Projects
+  // POST: api/DigitalCredentials
   [HttpPost]
-  public async Task<IActionResult> Post([FromBody] CreateProjectDTO request)
+  public async Task<IActionResult> Post([FromBody] CreateDigitalCredentialDTO request)
   {
-    var newProject = new DigitalCredential("1", request.Name);
+    var newDigitalCredential = new DigitalCredential("1", request.Name);
 
-    var createdProject = await _repository.AddAsync(newProject);
+    var createdDigitalCredential = await _repository.AddAsync(newDigitalCredential);
 
-    var result = new ProjectDTO
+    var result = new DigitalCredentialDTO
     (
-        id: createdProject.Id,
-        name: createdProject.Name
+        id: createdDigitalCredential.Id,
+        name: createdDigitalCredential.Name
     );
     return Ok(result);
   }
 
-  // PATCH: api/Projects/{projectId}/complete/{itemId}
-  [HttpPatch("{projectId:int}/complete/{itemId}")]
-  public async Task<IActionResult> Complete(string projectId, string itemId)
+  // PATCH: api/DigitalCredentials/{DigitalCredentialId}/complete/{itemId}
+  [HttpPatch("{DigitalCredentialId:int}/complete/{itemId}")]
+  public async Task<IActionResult> Complete(string DigitalCredentialId, string itemId)
   {
-    var projectSpec = new ProjectByIdWithItemsSpec(projectId);
-    var project = await _repository.GetBySpecAsync(projectSpec);
-    if (project == null) return NotFound("No such project");
+    var DigitalCredentialSpec = new DigitalCredentialByIdWithItemsSpec(DigitalCredentialId);
+    var DigitalCredential = await _repository.GetBySpecAsync(DigitalCredentialSpec);
+    if (DigitalCredential == null) return NotFound("No such DigitalCredential");
 
-    var toDoItem = project.Items.FirstOrDefault(item => item.Id == itemId);
+    var toDoItem = DigitalCredential.Items.FirstOrDefault(item => item.Id == itemId);
     if (toDoItem == null) return NotFound("No such item.");
 
     toDoItem.MarkComplete();
-    await _repository.UpdateAsync(project);
+    await _repository.UpdateAsync(DigitalCredential);
 
     return Ok();
   }

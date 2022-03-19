@@ -1,4 +1,4 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using OH.DI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +7,7 @@ namespace OH.DI.Web;
 public static class SeedData
 {
   public static readonly string proj1 = 1.ToString();
-  public static readonly DigitalCredential TestProject1 = new DigitalCredential(proj1, "Test Project");
+  public static readonly DigitalCredential TestDigitalCredential1 = new DigitalCredential(proj1, "Test DigitalCredential");
   public static readonly ToDoItem ToDoItem1 = new ToDoItem
   {
     Id = Guid.NewGuid().ToString(),
@@ -18,7 +18,7 @@ public static class SeedData
   {
     Id = Guid.NewGuid().ToString(),
     Title = "Review Solution",
-    Description = "Review the different projects in the solution and how they relate to one another."
+    Description = "Review the different DigitalCredentials in the solution and how they relate to one another."
   };
   public static readonly ToDoItem ToDoItem3 = new ToDoItem
   {
@@ -45,7 +45,7 @@ public static class SeedData
   }
   public static void PopulateTestData(AppDbContext dbContext)
   {
-    foreach (var item in dbContext.Projects)
+    foreach (var item in dbContext.DigitalCredentials)
     {
       dbContext.Remove(item);
     }
@@ -55,10 +55,10 @@ public static class SeedData
     }
     dbContext.SaveChanges();
 
-    TestProject1.AddItem(ToDoItem1);
-    TestProject1.AddItem(ToDoItem2);
-    TestProject1.AddItem(ToDoItem3);
-    dbContext.Projects.Add(TestProject1);
+    TestDigitalCredential1.AddItem(ToDoItem1);
+    TestDigitalCredential1.AddItem(ToDoItem2);
+    TestDigitalCredential1.AddItem(ToDoItem3);
+    dbContext.DigitalCredentials.Add(TestDigitalCredential1);
 
     dbContext.SaveChanges();
   }

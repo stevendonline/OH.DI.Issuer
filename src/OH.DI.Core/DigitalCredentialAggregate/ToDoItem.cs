@@ -1,8 +1,8 @@
-﻿using OH.DI.Core.ProjectAggregate.Events;
+﻿using OH.DI.Core.DigitalCredentialAggregate.Events;
 using OH.DI.SharedKernel;
 using OH.DI.SharedKernel.Interfaces;
 
-namespace OH.DI.Core.ProjectAggregate;
+namespace OH.DI.Core.DigitalCredentialAggregate;
 
 public class ToDoItem : BaseEntity, IAggregateRoot
 {
@@ -10,7 +10,7 @@ public class ToDoItem : BaseEntity, IAggregateRoot
   public string Description { get; set; } = string.Empty;
   public bool IsDone { get; private set; }
 
-  public string? ProjectId { get; set; }
+  public string? DigitalCredentialId { get; set; }
 
   public void MarkComplete()
   {

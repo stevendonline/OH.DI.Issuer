@@ -1,4 +1,4 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using OH.DI.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

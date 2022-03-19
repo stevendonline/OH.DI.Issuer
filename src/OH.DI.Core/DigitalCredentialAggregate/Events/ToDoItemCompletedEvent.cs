@@ -1,7 +1,7 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using OH.DI.SharedKernel;
 
-namespace OH.DI.Core.ProjectAggregate.Events;
+namespace OH.DI.Core.DigitalCredentialAggregate.Events;
 
 public class ToDoItemCompletedEvent : BaseDomainEvent
 {

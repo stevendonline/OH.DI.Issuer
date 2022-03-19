@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using OH.DI.Core.Interfaces;
-using OH.DI.Core.ProjectAggregate;
-using OH.DI.Core.ProjectAggregate.Specifications;
+using OH.DI.Core.DigitalCredentialAggregate;
+using OH.DI.Core.DigitalCredentialAggregate.Specifications;
 using OH.DI.SharedKernel.Interfaces;
 
 namespace OH.DI.Core.Services;
@@ -15,7 +15,7 @@ public class ToDoItemSearchService : IToDoItemSearchService
     _repository = repository;
   }
 
-  public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string projectId, string searchString)
+  public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string DigitalCredentialId, string searchString)
   {
     if (string.IsNullOrEmpty(searchString))
     {
@@ -28,17 +28,17 @@ public class ToDoItemSearchService : IToDoItemSearchService
       return Result<List<ToDoItem>>.Invalid(errors);
     }
 
-    var projectSpec = new ProjectByIdWithItemsSpec(projectId);
-    var project = await _repository.GetBySpecAsync(projectSpec);
+    var DigitalCredentialSpec = new DigitalCredentialByIdWithItemsSpec(DigitalCredentialId);
+    var DigitalCredential = await _repository.GetBySpecAsync(DigitalCredentialSpec);
 
     // TODO: Optionally use Ardalis.GuardClauses Guard.Against.NotFound and catch
-    if (project == null) return Result<List<ToDoItem>>.NotFound();
+    if (DigitalCredential == null) return Result<List<ToDoItem>>.NotFound();
 
     var incompleteSpec = new IncompleteItemsSearchSpec(searchString);
 
     try
     {
-      var items = incompleteSpec.Evaluate(project.Items).ToList();
+      var items = incompleteSpec.Evaluate(DigitalCredential.Items).ToList();
 
       return new Result<List<ToDoItem>>(items);
     }
@@ -49,18 +49,18 @@ public class ToDoItemSearchService : IToDoItemSearchService
     }
   }
 
-  public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync(string projectId)
+  public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync(string DigitalCredentialId)
   {
-    var projectSpec = new ProjectByIdWithItemsSpec(projectId);
-    var project = await _repository.GetBySpecAsync(projectSpec);
-    if (project == null)
+    var DigitalCredentialSpec = new DigitalCredentialByIdWithItemsSpec(DigitalCredentialId);
+    var DigitalCredential = await _repository.GetBySpecAsync(DigitalCredentialSpec);
+    if (DigitalCredential == null)
     {
       return Result<ToDoItem>.NotFound();
     }
 
     var incompleteSpec = new IncompleteItemsSpec();
 
-    var items = incompleteSpec.Evaluate(project.Items).ToList();
+    var items = incompleteSpec.Evaluate(DigitalCredential.Items).ToList();
 
     if (!items.Any())
     {

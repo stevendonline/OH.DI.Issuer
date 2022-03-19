@@ -1,4 +1,4 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using Xunit;
 
 namespace OH.DI.IntegrationTests.Data;
@@ -8,17 +8,17 @@ public class EfRepositoryDelete : BaseEfRepoTestFixture
   //[Fact]
   public async Task DeletesItemAfterAddingIt()
   {
-    // add a project
+    // add a DigitalCredential
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new DigitalCredential("1", initialName);
-    await repository.AddAsync(project);
+    var DigitalCredential = new DigitalCredential("1", initialName);
+    await repository.AddAsync(DigitalCredential);
 
     // delete the item
-    await repository.DeleteAsync(project);
+    await repository.DeleteAsync(DigitalCredential);
 
     // verify it's no longer there
     Assert.DoesNotContain(await repository.ListAsync(),
-        project => project.Name == initialName);
+        DigitalCredential => DigitalCredential.Name == initialName);
   }
 }

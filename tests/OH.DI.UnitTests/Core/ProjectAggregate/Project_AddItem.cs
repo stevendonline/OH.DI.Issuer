@@ -1,11 +1,11 @@
-﻿using OH.DI.Core.ProjectAggregate;
+﻿using OH.DI.Core.DigitalCredentialAggregate;
 using Xunit;
 
-namespace OH.DI.UnitTests.Core.ProjectAggregate;
+namespace OH.DI.UnitTests.Core.DigitalCredentialAggregate;
 
-public class Project_AddItem
+public class DigitalCredential_AddItem
 {
-  private DigitalCredential _testProject = new DigitalCredential("1", "some name");
+  private DigitalCredential _testDigitalCredential = new DigitalCredential("1", "some name");
 
   [Fact]
   public void AddsItemToItems()
@@ -16,16 +16,16 @@ public class Project_AddItem
       Description = "description"
     };
 
-    _testProject.AddItem(_testItem);
+    _testDigitalCredential.AddItem(_testItem);
 
-    Assert.Contains(_testItem, _testProject.Items);
+    Assert.Contains(_testItem, _testDigitalCredential.Items);
   }
 
   [Fact]
   public void ThrowsExceptionGivenNullItem()
   {
 #nullable disable
-    Action action = () => _testProject.AddItem(null);
+    Action action = () => _testDigitalCredential.AddItem(null);
 #nullable enable
 
     var ex = Assert.Throws<ArgumentNullException>(action);

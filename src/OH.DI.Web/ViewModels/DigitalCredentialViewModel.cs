@@ -2,7 +2,7 @@
 
 namespace OH.DI.Web.ViewModels;
 
-public class ProjectViewModel
+public class DigitalCredentialViewModel
 {
   public string Id { get; set; }
   public string? Name { get; set; }

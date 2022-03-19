@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using OH.DI.Core.Interfaces;
-using OH.DI.Core.ProjectAggregate.Events;
+using OH.DI.Core.DigitalCredentialAggregate.Events;
 using MediatR;
 
-namespace OH.DI.Core.ProjectAggregate.Handlers;
+namespace OH.DI.Core.DigitalCredentialAggregate.Handlers;
 
 public class ItemCompletedEmailNotificationHandler : INotificationHandler<ToDoItemCompletedEvent>
 {
