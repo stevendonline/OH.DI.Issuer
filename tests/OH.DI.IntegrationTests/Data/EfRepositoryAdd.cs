@@ -10,7 +10,7 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
   {
     var testProjectName = "testProject";
     var repository = GetRepository();
-    var project = new Project(testProjectName);
+    var project = new DigitalCredential("1", testProjectName);
 
     await repository.AddAsync(project);
 

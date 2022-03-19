@@ -12,7 +12,7 @@ namespace OH.DI.Web.Pages.ToDoRazorPage;
 [Authorize]
 public class IndexModel : PageModel
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IRepository<DigitalCredential> _repository;
 
   [BindProperty(SupportsGet = true)]
   public string ProjectId { get; set; }
@@ -20,7 +20,7 @@ public class IndexModel : PageModel
 
   public ProjectDTO? Project { get; set; }
 
-  public IndexModel(IRepository<Project> repository)
+  public IndexModel(IRepository<DigitalCredential> repository)
   {
     _repository = repository;
   }

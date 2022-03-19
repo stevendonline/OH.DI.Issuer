@@ -10,7 +10,7 @@ public class ToDoItem : BaseEntity, IAggregateRoot
   public string Description { get; set; } = string.Empty;
   public bool IsDone { get; private set; }
 
-  public string ProjectId { get; set; }
+  public string? ProjectId { get; set; }
 
   public void MarkComplete()
   {

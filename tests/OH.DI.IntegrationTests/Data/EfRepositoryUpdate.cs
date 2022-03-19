@@ -12,7 +12,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     // add a project
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new Project(initialName);
+    var project = new DigitalCredential("1", initialName);
 
     await repository.AddAsync(project);
 

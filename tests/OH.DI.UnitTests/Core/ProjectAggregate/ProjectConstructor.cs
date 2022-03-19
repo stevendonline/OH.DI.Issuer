@@ -3,14 +3,14 @@ using Xunit;
 
 namespace OH.DI.UnitTests.Core.ProjectAggregate;
 
-public class ProjectConstructor
+public class DigitalCredentialConstructor
 {
   private string _testName = "test name";
-  private Project? _testProject;
+  private DigitalCredential? _testProject;
 
-  private Project CreateProject()
+  private DigitalCredential CreateProject()
   {
-    return new Project(_testName);
+    return new DigitalCredential("1", _testName);
   }
 
   [Fact]
@@ -34,6 +34,6 @@ public class ProjectConstructor
   {
     _testProject = CreateProject();
 
-    Assert.Equal(ProjectStatus.Complete, _testProject.Status);
+    Assert.Equal(DigitalCredentialStatus.Complete, _testProject.Status);
   }
 }

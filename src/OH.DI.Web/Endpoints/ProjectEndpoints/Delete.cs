@@ -10,9 +10,9 @@ public class Delete : EndpointBaseAsync
     .WithRequest<DeleteProjectRequest>
     .WithoutResult
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IRepository<DigitalCredential> _repository;
 
-  public Delete(IRepository<Project> repository)
+  public Delete(IRepository<DigitalCredential> repository)
   {
     _repository = repository;
   }

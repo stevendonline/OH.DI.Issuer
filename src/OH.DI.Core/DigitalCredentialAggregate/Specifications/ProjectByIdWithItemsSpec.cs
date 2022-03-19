@@ -3,7 +3,7 @@ using OH.DI.Core.ProjectAggregate;
 
 namespace OH.DI.Core.ProjectAggregate.Specifications;
 
-public class ProjectByIdWithItemsSpec : Specification<Project>, ISingleResultSpecification
+public class ProjectByIdWithItemsSpec : Specification<DigitalCredential>, ISingleResultSpecification
 {
   public ProjectByIdWithItemsSpec(string projectId)
   {

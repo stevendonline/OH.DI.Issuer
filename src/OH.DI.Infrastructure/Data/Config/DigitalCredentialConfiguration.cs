@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace OH.DI.Infrastructure.Data.Config;
 
-public class ProjectConfiguration : IEntityTypeConfiguration<Project>
+public class DigitalCredentialConfiguration : IEntityTypeConfiguration<DigitalCredential>
 {
-  public void Configure(EntityTypeBuilder<Project> builder)
+  public void Configure(EntityTypeBuilder<DigitalCredential> builder)
   {
-    builder.ToContainer("Project");
-    builder.HasPartitionKey(proj => proj.Id);
+    builder.ToContainer("DigitalCredential");
+    builder.HasPartitionKey(cred => cred.UserId);
     builder.HasMany<ToDoItem>(todo => todo.Items).WithOne();
 
     builder.Property(p => p.Name)

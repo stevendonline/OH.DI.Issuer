@@ -5,22 +5,25 @@ using OH.DI.SharedKernel.Interfaces;
 
 namespace OH.DI.Core.ProjectAggregate;
 
-public class Project : BaseEntity, IAggregateRoot
+public class DigitalCredential : BaseEntity, IAggregateRoot
 {
+  public string UserId { get; private set; }
   public string Name { get; private set; }
 
   private List<ToDoItem> _items = new List<ToDoItem>();
   public IEnumerable<ToDoItem> Items => _items.AsReadOnly();
-  public ProjectStatus Status => _items.All(i => i.IsDone) ? ProjectStatus.Complete : ProjectStatus.InProgress;
+  public DigitalCredentialStatus Status => _items.All(i => i.IsDone) ? DigitalCredentialStatus.Complete : DigitalCredentialStatus.InProgress;
 
-  public Project(string name)
+  public DigitalCredential(string userId, string name)
   {
+    UserId = userId;
     Id = Guid.NewGuid().ToString();
     Name = Guard.Against.NullOrEmpty(name, nameof(name));
   }
 
-  public Project(string id, string name)
+  public DigitalCredential(string userId, string id, string name)
   {
+    UserId = userId;
     Id = id;
     Name = Guard.Against.NullOrEmpty(name, nameof(name));
   }
@@ -30,7 +33,7 @@ public class Project : BaseEntity, IAggregateRoot
     Guard.Against.Null(newItem, nameof(newItem));
     _items.Add(newItem);
 
-    var newItemAddedEvent = new NewItemAddedEvent(this, newItem);
+    var newItemAddedEvent = new NewAttributeAddedEvent(this, newItem);
     Events.Add(newItemAddedEvent);
   }
 

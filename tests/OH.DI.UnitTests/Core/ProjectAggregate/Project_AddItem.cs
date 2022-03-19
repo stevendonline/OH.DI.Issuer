@@ -5,7 +5,7 @@ namespace OH.DI.UnitTests.Core.ProjectAggregate;
 
 public class Project_AddItem
 {
-  private Project _testProject = new Project("some name");
+  private DigitalCredential _testProject = new DigitalCredential("1", "some name");
 
   [Fact]
   public void AddsItemToItems()

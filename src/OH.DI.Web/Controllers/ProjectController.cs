@@ -9,9 +9,9 @@ namespace OH.DI.Web.Controllers;
 [Route("[controller]")]
 public class ProjectController : Controller
 {
-  private readonly IRepository<Project> _projectRepository;
+  private readonly IRepository<DigitalCredential> _projectRepository;
 
-  public ProjectController(IRepository<Project> projectRepository)
+  public ProjectController(IRepository<DigitalCredential> projectRepository)
   {
     _projectRepository = projectRepository;
   }

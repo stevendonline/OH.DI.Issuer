@@ -10,11 +10,11 @@ namespace OH.DI.Web.Pages.ToDoRazorPage;
 
 public class IncompleteModel : PageModel
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IRepository<DigitalCredential> _repository;
 
   public List<ToDoItem>? ToDoItems { get; set; }
 
-  public IncompleteModel(IRepository<Project> repository)
+  public IncompleteModel(IRepository<DigitalCredential> repository)
   {
     _repository = repository;
   }

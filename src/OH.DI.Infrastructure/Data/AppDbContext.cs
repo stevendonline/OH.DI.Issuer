@@ -27,7 +27,7 @@ public class AppDbContext : CosmosIdentityDbContext<ApplicationUser>
   //public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
   public DbSet<ToDoItem> ToDoItems { get; set; }
   //public DbSet<Project> Projects => Set<Project>();
-  public DbSet<Project> Projects { get; set; }
+  public DbSet<DigitalCredential> Projects { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

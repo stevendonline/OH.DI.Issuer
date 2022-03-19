@@ -10,9 +10,9 @@ public class List : EndpointBaseAsync
     .WithoutRequest
     .WithActionResult<ProjectListResponse>
 {
-  private readonly IReadRepository<Project> _repository;
+  private readonly IReadRepository<DigitalCredential> _repository;
 
-  public List(IReadRepository<Project> repository)
+  public List(IReadRepository<DigitalCredential> repository)
   {
     _repository = repository;
   }

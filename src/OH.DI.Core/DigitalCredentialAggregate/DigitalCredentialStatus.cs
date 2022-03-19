@@ -1,6 +1,6 @@
 ﻿namespace OH.DI.Core.ProjectAggregate;
 
-public enum ProjectStatus
+public enum DigitalCredentialStatus
 {
   InProgress,
   Complete

@@ -20,6 +20,6 @@ public class HomeControllerIndex : IClassFixture<CustomWebApplicationFactory<Web
     response.EnsureSuccessStatusCode();
     string stringResponse = await response.Content.ReadAsStringAsync();
 
-    Assert.Contains("OH.DI.Web", stringResponse);
+    Assert.Contains("OH.DI.Issuer", stringResponse);
   }
 }

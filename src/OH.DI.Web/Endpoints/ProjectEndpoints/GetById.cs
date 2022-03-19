@@ -12,10 +12,10 @@ public class GetById : EndpointBaseAsync
     .WithRequest<GetProjectByIdRequest>
     .WithActionResult<GetProjectByIdResponse>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IRepository<DigitalCredential> _repository;
   private readonly IRepository<ToDoItem> _itemRep;
 
-  public GetById(IRepository<Project> repository, IRepository<ToDoItem> itemRep)
+  public GetById(IRepository<DigitalCredential> repository, IRepository<ToDoItem> itemRep)
   {
     _repository = repository;
     _itemRep = itemRep;

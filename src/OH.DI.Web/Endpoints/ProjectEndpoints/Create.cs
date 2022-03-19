@@ -10,9 +10,9 @@ public class Create : EndpointBaseAsync
     .WithRequest<CreateProjectRequest>
     .WithActionResult<CreateProjectResponse>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IRepository<DigitalCredential> _repository;
 
-  public Create(IRepository<Project> repository)
+  public Create(IRepository<DigitalCredential> repository)
   {
     _repository = repository;
   }
@@ -32,7 +32,7 @@ public class Create : EndpointBaseAsync
       return BadRequest();
     }
 
-    var newProject = new Project(request.Name);
+    var newProject = new DigitalCredential("1", request.Name);
 
     var createdItem = await _repository.AddAsync(newProject); // TODO: pass cancellation token
 

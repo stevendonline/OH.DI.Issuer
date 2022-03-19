@@ -36,8 +36,8 @@ public abstract class BaseEfRepoTestFixture
     return builder.Options;
   }
 
-  protected EfRepository<Project> GetRepository()
+  protected EfRepository<DigitalCredential> GetRepository()
   {
-    return new EfRepository<Project>(_dbContext);
+    return new EfRepository<DigitalCredential>(_dbContext);
   }
 }

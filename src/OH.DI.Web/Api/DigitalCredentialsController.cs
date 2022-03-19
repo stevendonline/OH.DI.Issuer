@@ -10,12 +10,12 @@ namespace OH.DI.Web.Api;
 /// A sample API Controller. Consider using API Endpoints (see Endpoints folder) for a more SOLID approach to building APIs
 /// https://github.com/ardalis/ApiEndpoints
 /// </summary>
-public class ProjectsController : BaseApiController
+public class DigitalCredentialsController : BaseApiController
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IRepository<DigitalCredential> _repository;
   private readonly IRepository<ToDoItem> _itemRep;
 
-  public ProjectsController(IRepository<Project> repository, IRepository<ToDoItem > itemRep)
+  public DigitalCredentialsController(IRepository<DigitalCredential> repository, IRepository<ToDoItem > itemRep)
   {
     _repository = repository;
     _itemRep = itemRep;
@@ -64,7 +64,7 @@ public class ProjectsController : BaseApiController
   [HttpPost]
   public async Task<IActionResult> Post([FromBody] CreateProjectDTO request)
   {
-    var newProject = new Project(request.Name);
+    var newProject = new DigitalCredential("1", request.Name);
 
     var createdProject = await _repository.AddAsync(newProject);
 

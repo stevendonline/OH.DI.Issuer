@@ -8,9 +8,9 @@ namespace OH.DI.Core.Services;
 
 public class ToDoItemSearchService : IToDoItemSearchService
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IRepository<DigitalCredential> _repository;
 
-  public ToDoItemSearchService(IRepository<Project> repository)
+  public ToDoItemSearchService(IRepository<DigitalCredential> repository)
   {
     _repository = repository;
   }

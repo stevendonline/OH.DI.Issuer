@@ -7,7 +7,7 @@ namespace OH.DI.Web;
 public static class SeedData
 {
   public static readonly string proj1 = 1.ToString();
-  public static readonly Project TestProject1 = new Project(proj1, "Test Project");
+  public static readonly DigitalCredential TestProject1 = new DigitalCredential(proj1, "Test Project");
   public static readonly ToDoItem ToDoItem1 = new ToDoItem
   {
     Id = Guid.NewGuid().ToString(),

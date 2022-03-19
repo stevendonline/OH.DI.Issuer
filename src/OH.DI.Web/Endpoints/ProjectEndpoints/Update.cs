@@ -10,9 +10,9 @@ public class Update : EndpointBaseAsync
     .WithRequest<UpdateProjectRequest>
     .WithActionResult<UpdateProjectResponse>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IRepository<DigitalCredential> _repository;
 
-  public Update(IRepository<Project> repository)
+  public Update(IRepository<DigitalCredential> repository)
   {
     _repository = repository;
   }
