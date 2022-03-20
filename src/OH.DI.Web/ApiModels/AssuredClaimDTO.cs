@@ -4,7 +4,7 @@ using OH.DI.Core.DigitalCredentialAggregate;
 namespace OH.DI.Web.ApiModels;
 
 // ApiModel DTOs are used by ApiController classes and are typically kept in a side-by-side folder
-public class ToDoItemDTO
+public class AssuredClaimDTO
 {
   public string Id { get; set; }
   [Required]
@@ -12,12 +12,12 @@ public class ToDoItemDTO
   public string? Description { get; set; }
   public bool IsDone { get; private set; }
 
-  public static ToDoItemDTO FromToDoItem(ToDoItem item)
+  public static AssuredClaimDTO FromToDoItem(AssuredClaim item)
   {
-    return new ToDoItemDTO()
+    return new AssuredClaimDTO()
     {
       Id = item.Id,
-      Title = item.Title,
+      Title = item.Name,
       Description = item.Description,
       IsDone = item.IsDone
     };

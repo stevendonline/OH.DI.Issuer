@@ -12,7 +12,7 @@ public class IncompleteModel : PageModel
 {
   private readonly IRepository<DigitalCredential> _repository;
 
-  public List<ToDoItem>? ToDoItems { get; set; }
+  public List<AssuredClaim>? ToDoItems { get; set; }
 
   public IncompleteModel(IRepository<DigitalCredential> repository)
   {
@@ -27,7 +27,7 @@ public class IncompleteModel : PageModel
     {
       return;
     }
-    var spec = new IncompleteItemsSpec();
+    var spec = new IncompleteClaimsSpec();
 
     ToDoItems = spec.Evaluate(DigitalCredential.Items).ToList();
   }

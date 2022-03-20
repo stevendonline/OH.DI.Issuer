@@ -26,6 +26,6 @@ public class ToDoItemMarkComplete
     item.MarkComplete();
 
     Assert.Single(item.Events);
-    Assert.IsType<ToDoItemCompletedEvent>(item.Events.First());
+    Assert.IsType<AssuredClaimCompletedEvent>(item.Events.First());
   }
 }

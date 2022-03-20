@@ -6,5 +6,5 @@ public class DigitalCredentialViewModel
 {
   public string Id { get; set; }
   public string? Name { get; set; }
-  public List<ToDoItemViewModel> Items = new();
+  public List<AssuredClaimViewModel> Items = new();
 }

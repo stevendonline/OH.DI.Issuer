@@ -25,7 +25,7 @@ public class AppDbContext : CosmosIdentityDbContext<ApplicationUser>
   }
 
   //public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
-  public DbSet<ToDoItem> ToDoItems { get; set; }
+  public DbSet<AssuredClaim> ToDoItems { get; set; }
   //public DbSet<DigitalCredential> DigitalCredentials => Set<DigitalCredential>();
   public DbSet<DigitalCredential> DigitalCredentials { get; set; }
 

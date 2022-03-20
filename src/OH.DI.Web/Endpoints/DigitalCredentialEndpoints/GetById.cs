@@ -13,9 +13,9 @@ public class GetById : EndpointBaseAsync
     .WithActionResult<GetDigtialCredentialByIdResponse>
 {
   private readonly IRepository<DigitalCredential> _repository;
-  private readonly IRepository<ToDoItem> _itemRep;
+  private readonly IRepository<AssuredClaim> _itemRep;
 
-  public GetById(IRepository<DigitalCredential> repository, IRepository<ToDoItem> itemRep)
+  public GetById(IRepository<DigitalCredential> repository, IRepository<AssuredClaim> itemRep)
   {
     _repository = repository;
     _itemRep = itemRep;
@@ -35,8 +35,8 @@ public class GetById : EndpointBaseAsync
     var entity = await _repository.GetBySpecAsync(spec); // TODO: pass cancellation token
     if (entity == null) return NotFound();
 
-    var itemSpec = new ToDoItemsByIdSpec(request.DigitalCredentialId);
-    var proitems = (await _itemRep.ListAsync(itemSpec)).Select(i => new ToDoItemRecord(i.Id, i.Title, i.Description, i.IsDone )).ToList();
+    var itemSpec = new AssuredClaimsByIdSpec(request.DigitalCredentialId);
+    var proitems = (await _itemRep.ListAsync(itemSpec)).Select(i => new AssuredClaimRecord(i.Id, i.Name, i.Description, i.IsDone )).ToList();
 
     var response = new GetDigtialCredentialByIdResponse
     (

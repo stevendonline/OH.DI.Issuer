@@ -2,9 +2,9 @@
 
 namespace OH.DI.Core.DigitalCredentialAggregate.Specifications;
 
-public class ToDoItemsByIdSpec : Specification<ToDoItem>
+public class AssuredClaimsByIdSpec : Specification<AssuredClaim>
 {
-  public ToDoItemsByIdSpec(string id)
+  public AssuredClaimsByIdSpec(string id)
   {
     Query.Where(item => item.DigitalCredentialId == id);
   }

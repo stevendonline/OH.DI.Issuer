@@ -10,8 +10,8 @@ public class DigitalCredential : BaseEntity, IAggregateRoot
   public string UserId { get; private set; }
   public string Name { get; private set; }
 
-  private List<ToDoItem> _items = new List<ToDoItem>();
-  public IEnumerable<ToDoItem> Items => _items.AsReadOnly();
+  private List<AssuredClaim> _items = new List<AssuredClaim>();
+  public IEnumerable<AssuredClaim> Items => _items.AsReadOnly();
   public DigitalCredentialStatus Status => _items.All(i => i.IsDone) ? DigitalCredentialStatus.Complete : DigitalCredentialStatus.InProgress;
 
   public DigitalCredential(string userId, string name)
@@ -28,12 +28,12 @@ public class DigitalCredential : BaseEntity, IAggregateRoot
     Name = Guard.Against.NullOrEmpty(name, nameof(name));
   }
 
-  public void AddItem(ToDoItem newItem)
+  public void AddItem(AssuredClaim newItem)
   {
     Guard.Against.Null(newItem, nameof(newItem));
     _items.Add(newItem);
 
-    var newItemAddedEvent = new NewAttributeAddedEvent(this, newItem);
+    var newItemAddedEvent = new NewClaimAddedEvent(this, newItem);
     Events.Add(newItemAddedEvent);
   }
 

@@ -13,9 +13,9 @@ namespace OH.DI.Web.Api;
 public class DigitalCredentialsController : BaseApiController
 {
   private readonly IRepository<DigitalCredential> _repository;
-  private readonly IRepository<ToDoItem> _itemRep;
+  private readonly IRepository<AssuredClaim> _itemRep;
 
-  public DigitalCredentialsController(IRepository<DigitalCredential> repository, IRepository<ToDoItem > itemRep)
+  public DigitalCredentialsController(IRepository<DigitalCredential> repository, IRepository<AssuredClaim > itemRep)
   {
     _repository = repository;
     _itemRep = itemRep;
@@ -51,9 +51,9 @@ public class DigitalCredentialsController : BaseApiController
     (
         id: DigitalCredential.Id,
         name: DigitalCredential.Name,
-        items: new List<ToDoItemDTO>
+        items: new List<AssuredClaimDTO>
         (
-            DigitalCredential.Items.Select(i => ToDoItemDTO.FromToDoItem(i)).ToList()
+            DigitalCredential.Items.Select(i => AssuredClaimDTO.FromToDoItem(i)).ToList()
         )
     );
 

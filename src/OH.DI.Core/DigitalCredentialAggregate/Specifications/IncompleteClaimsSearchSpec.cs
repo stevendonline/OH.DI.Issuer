@@ -2,13 +2,13 @@
 
 namespace OH.DI.Core.DigitalCredentialAggregate.Specifications;
 
-public class IncompleteItemsSearchSpec : Specification<ToDoItem>
+public class IncompleteClaimsSearchSpec : Specification<AssuredClaim>
 {
-  public IncompleteItemsSearchSpec(string searchString)
+  public IncompleteClaimsSearchSpec(string searchString)
   {
     Query
         .Where(item => !item.IsDone &&
-        (item.Title.Contains(searchString) ||
+        (item.Name.Contains(searchString) ||
         item.Description.Contains(searchString)));
   }
 }

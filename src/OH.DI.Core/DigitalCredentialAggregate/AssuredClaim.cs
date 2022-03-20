@@ -4,9 +4,14 @@ using OH.DI.SharedKernel.Interfaces;
 
 namespace OH.DI.Core.DigitalCredentialAggregate;
 
-public class ToDoItem : BaseEntity, IAggregateRoot
+public class AssuredClaim : BaseEntity, IAggregateRoot
 {
-  public string Title { get; set; } = string.Empty;
+  public string? Name { get; set; }
+  public string? Value { get; set; }
+  public string? AssuranceLevel { get; set; }
+  public string? Source { get; set; }
+  public string AuthenticationMethod { get; set; } = string.Empty;
+
   public string Description { get; set; } = string.Empty;
   public bool IsDone { get; private set; }
 
@@ -18,13 +23,13 @@ public class ToDoItem : BaseEntity, IAggregateRoot
     {
       IsDone = true;
 
-      Events.Add(new ToDoItemCompletedEvent(this));
+      Events.Add(new AssuredClaimCompletedEvent(this));
     }
   }
 
   public override string ToString()
   {
     string status = IsDone ? "Done!" : "Not done.";
-    return $"{Id}: Status: {status} - {Title} - {Description}";
+    return $"{Id}: Status: {status} - {Name} - {Description}";
   }
 }

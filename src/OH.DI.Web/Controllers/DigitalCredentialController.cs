@@ -32,7 +32,7 @@ public class DigitalCredentialController : Controller
       Id = DigitalCredential.Id,
       Name = DigitalCredential.Name,
       Items = DigitalCredential.Items
-                    .Select(item => ToDoItemViewModel.FromToDoItem(item))
+                    .Select(item => AssuredClaimViewModel.FromToDoItem(item))
                     .ToList()
     };
     return View(dto);

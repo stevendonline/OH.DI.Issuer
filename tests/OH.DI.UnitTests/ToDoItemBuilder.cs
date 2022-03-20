@@ -6,7 +6,7 @@ namespace OH.DI.UnitTests;
 // https://ardalis.com/improve-tests-with-the-builder-pattern-for-test-data
 public class ToDoItemBuilder
 {
-  private ToDoItem _todo = new ToDoItem();
+  private AssuredClaim _todo = new AssuredClaim();
 
   public ToDoItemBuilder Id(string id)
   {
@@ -16,7 +16,7 @@ public class ToDoItemBuilder
 
   public ToDoItemBuilder Title(string title)
   {
-    _todo.Title = title;
+    _todo.Name = title;
     return this;
   }
 
@@ -28,10 +28,10 @@ public class ToDoItemBuilder
 
   public ToDoItemBuilder WithDefaultValues()
   {
-    _todo = new ToDoItem() { Id = 1.ToString(), Title = "Test Item", Description = "Test Description" };
+    _todo = new AssuredClaim() { Id = 1.ToString(), Name = "Test Item", Description = "Test Description" };
 
     return this;
   }
 
-  public ToDoItem Build() => _todo;
+  public AssuredClaim Build() => _todo;
 }

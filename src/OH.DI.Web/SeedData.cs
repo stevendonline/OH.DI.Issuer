@@ -8,22 +8,22 @@ public static class SeedData
 {
   public static readonly string proj1 = 1.ToString();
   public static readonly DigitalCredential TestDigitalCredential1 = new DigitalCredential(proj1, "Test DigitalCredential");
-  public static readonly ToDoItem ToDoItem1 = new ToDoItem
+  public static readonly AssuredClaim ToDoItem1 = new AssuredClaim
   {
     Id = Guid.NewGuid().ToString(),
-    Title = "Get Sample Working",
+    Name = "Get Sample Working",
     Description = "Try to get the sample to build."
   };
-  public static readonly ToDoItem ToDoItem2 = new ToDoItem
+  public static readonly AssuredClaim ToDoItem2 = new AssuredClaim
   {
     Id = Guid.NewGuid().ToString(),
-    Title = "Review Solution",
+    Name = "Review Solution",
     Description = "Review the different DigitalCredentials in the solution and how they relate to one another."
   };
-  public static readonly ToDoItem ToDoItem3 = new ToDoItem
+  public static readonly AssuredClaim ToDoItem3 = new AssuredClaim
   {
     Id = Guid.NewGuid().ToString(),
-    Title = "Run and Review Tests",
+    Name = "Run and Review Tests",
     Description = "Make sure all the tests run and review what they are doing."
   };
 

@@ -2,9 +2,9 @@
 
 namespace OH.DI.Core.DigitalCredentialAggregate.Specifications;
 
-public class IncompleteItemsSpec : Specification<ToDoItem>
+public class IncompleteClaimsSpec : Specification<AssuredClaim>
 {
-  public IncompleteItemsSpec()
+  public IncompleteClaimsSpec()
   {
     Query.Where(item => !item.IsDone);
   }

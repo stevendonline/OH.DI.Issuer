@@ -6,16 +6,16 @@ using OH.DI.SharedKernel.Interfaces;
 
 namespace OH.DI.Core.Services;
 
-public class ToDoItemSearchService : IToDoItemSearchService
+public class AssuredClaimSearchService : IAssuredClaimSearchService
 {
   private readonly IRepository<DigitalCredential> _repository;
 
-  public ToDoItemSearchService(IRepository<DigitalCredential> repository)
+  public AssuredClaimSearchService(IRepository<DigitalCredential> repository)
   {
     _repository = repository;
   }
 
-  public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string DigitalCredentialId, string searchString)
+  public async Task<Result<List<AssuredClaim>>> GetAllIncompleteItemsAsync(string DigitalCredentialId, string searchString)
   {
     if (string.IsNullOrEmpty(searchString))
     {
@@ -25,48 +25,48 @@ public class ToDoItemSearchService : IToDoItemSearchService
         Identifier = nameof(searchString),
         ErrorMessage = $"{nameof(searchString)} is required."
       });
-      return Result<List<ToDoItem>>.Invalid(errors);
+      return Result<List<AssuredClaim>>.Invalid(errors);
     }
 
     var DigitalCredentialSpec = new DigitalCredentialByIdWithItemsSpec(DigitalCredentialId);
     var DigitalCredential = await _repository.GetBySpecAsync(DigitalCredentialSpec);
 
     // TODO: Optionally use Ardalis.GuardClauses Guard.Against.NotFound and catch
-    if (DigitalCredential == null) return Result<List<ToDoItem>>.NotFound();
+    if (DigitalCredential == null) return Result<List<AssuredClaim>>.NotFound();
 
-    var incompleteSpec = new IncompleteItemsSearchSpec(searchString);
+    var incompleteSpec = new IncompleteClaimsSearchSpec(searchString);
 
     try
     {
       var items = incompleteSpec.Evaluate(DigitalCredential.Items).ToList();
 
-      return new Result<List<ToDoItem>>(items);
+      return new Result<List<AssuredClaim>>(items);
     }
     catch (Exception ex)
     {
       // TODO: Log details here
-      return Result<List<ToDoItem>>.Error(new[] { ex.Message });
+      return Result<List<AssuredClaim>>.Error(new[] { ex.Message });
     }
   }
 
-  public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync(string DigitalCredentialId)
+  public async Task<Result<AssuredClaim>> GetNextIncompleteItemAsync(string DigitalCredentialId)
   {
     var DigitalCredentialSpec = new DigitalCredentialByIdWithItemsSpec(DigitalCredentialId);
     var DigitalCredential = await _repository.GetBySpecAsync(DigitalCredentialSpec);
     if (DigitalCredential == null)
     {
-      return Result<ToDoItem>.NotFound();
+      return Result<AssuredClaim>.NotFound();
     }
 
-    var incompleteSpec = new IncompleteItemsSpec();
+    var incompleteSpec = new IncompleteClaimsSpec();
 
     var items = incompleteSpec.Evaluate(DigitalCredential.Items).ToList();
 
     if (!items.Any())
     {
-      return Result<ToDoItem>.NotFound();
+      return Result<AssuredClaim>.NotFound();
     }
 
-    return new Result<ToDoItem>(items.First());
+    return new Result<AssuredClaim>(items.First());
   }
 }

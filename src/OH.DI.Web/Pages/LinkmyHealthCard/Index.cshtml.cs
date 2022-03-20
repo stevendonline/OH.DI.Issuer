@@ -39,7 +39,7 @@ namespace OH.DI.Issuer.Web.Pages.LinkmyHealthCard
           id: digitalCredential.Id,
           name: digitalCredential.Name,
           items: digitalCredential.Items
-          .Select(item => ToDoItemDTO.FromToDoItem(item))
+          .Select(item => AssuredClaimDTO.FromToDoItem(item))
           .ToList()
       );
     }

@@ -3,7 +3,7 @@ namespace OH.DI.Web.Endpoints.DigitalCredentialEndpoints;
 
 public class GetDigtialCredentialByIdResponse
 {
-  public GetDigtialCredentialByIdResponse(string id, string name, List<ToDoItemRecord> items)
+  public GetDigtialCredentialByIdResponse(string id, string name, List<AssuredClaimRecord> items)
   {
     Id = id;
     Name = name;
@@ -12,5 +12,5 @@ public class GetDigtialCredentialByIdResponse
 
   public string Id { get; set; }
   public string Name { get; set; }
-  public List<ToDoItemRecord> Items { get; set; } = new();
+  public List<AssuredClaimRecord> Items { get; set; } = new();
 }

@@ -10,9 +10,9 @@ public class DigitalCredential_AddItem
   [Fact]
   public void AddsItemToItems()
   {
-    var _testItem = new ToDoItem
+    var _testItem = new AssuredClaim
     {
-      Title = "title",
+      Name = "title",
       Description = "description"
     };
 

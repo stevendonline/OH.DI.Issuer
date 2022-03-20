@@ -2,19 +2,19 @@
 
 namespace OH.DI.Web.ViewModels;
 
-public class ToDoItemViewModel
+public class AssuredClaimViewModel
 {
   public string Id { get; set; }
   public string? Title { get; set; }
   public string? Description { get; set; }
   public bool IsDone { get; private set; }
 
-  public static ToDoItemViewModel FromToDoItem(ToDoItem item)
+  public static AssuredClaimViewModel FromToDoItem(AssuredClaim item)
   {
-    return new ToDoItemViewModel()
+    return new AssuredClaimViewModel()
     {
       Id = item.Id,
-      Title = item.Title,
+      Title = item.Name,
       Description = item.Description,
       IsDone = item.IsDone
     };

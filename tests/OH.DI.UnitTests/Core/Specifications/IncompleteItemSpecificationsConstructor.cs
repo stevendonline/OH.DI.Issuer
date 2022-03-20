@@ -9,14 +9,14 @@ public class IncompleteItemsSpecificationConstructor
   [Fact]
   public void FilterCollectionToOnlyReturnItemsWithIsDoneFalse()
   {
-    var item1 = new ToDoItem();
-    var item2 = new ToDoItem();
-    var item3 = new ToDoItem();
+    var item1 = new AssuredClaim();
+    var item2 = new AssuredClaim();
+    var item3 = new AssuredClaim();
     item3.MarkComplete();
 
-    var items = new List<ToDoItem>() { item1, item2, item3 };
+    var items = new List<AssuredClaim>() { item1, item2, item3 };
 
-    var spec = new IncompleteItemsSpec();
+    var spec = new IncompleteClaimsSpec();
 
     var filteredList = spec.Evaluate(items);
 

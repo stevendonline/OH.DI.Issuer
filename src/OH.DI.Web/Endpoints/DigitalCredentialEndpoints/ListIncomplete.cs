@@ -9,9 +9,9 @@ public class ListIncomplete : EndpointBaseAsync
     .WithRequest<ListIncompleteRequest>
     .WithActionResult<ListIncompleteResponse>
 {
-  private readonly IToDoItemSearchService _searchService;
+  private readonly IAssuredClaimSearchService _searchService;
 
-  public ListIncomplete(IToDoItemSearchService searchService)
+  public ListIncomplete(IAssuredClaimSearchService searchService)
   {
     _searchService = searchService;
   }
@@ -29,16 +29,16 @@ public class ListIncomplete : EndpointBaseAsync
     {
       return BadRequest();
     }
-    var response = new ListIncompleteResponse(1.ToString(), new List<ToDoItemRecord>());
+    var response = new ListIncompleteResponse(1.ToString(), new List<AssuredClaimRecord>());
     var result = await _searchService.GetAllIncompleteItemsAsync(request.DigitalCredentialId, request.SearchString);
 
     if (result.Status == Ardalis.Result.ResultStatus.Ok)
     {
       response.DigitalCredentialId = request.DigitalCredentialId;
-      response.IncompleteItems = new List<ToDoItemRecord>(
+      response.IncompleteItems = new List<AssuredClaimRecord>(
               result.Value.Select(
-                  item => new ToDoItemRecord(item.Id,
-                  item.Title,
+                  item => new AssuredClaimRecord(item.Id,
+                  item.Name,
                   item.Description,
                   item.IsDone)));
     }
