@@ -12,13 +12,11 @@ namespace OH.DI.Web.Api;
 /// </summary>
 public class DigitalCredentialsController : BaseApiController
 {
-  private readonly IRepository<DigitalCredential> _repository;
-  private readonly IRepository<AssuredClaim> _itemRep;
+  private readonly IRepository<DigitalCredential> _repository;  
 
-  public DigitalCredentialsController(IRepository<DigitalCredential> repository, IRepository<AssuredClaim > itemRep)
+  public DigitalCredentialsController(IRepository<DigitalCredential> repository)
   {
     _repository = repository;
-    _itemRep = itemRep;
   }
 
   // GET: api/DigitalCredentials
@@ -53,7 +51,7 @@ public class DigitalCredentialsController : BaseApiController
         name: DigitalCredential.Name,
         items: new List<AssuredClaimDTO>
         (
-            DigitalCredential.Items.Select(i => AssuredClaimDTO.FromToDoItem(i)).ToList()
+            DigitalCredential.AssuredClaims.Select(i => AssuredClaimDTO.FromToDoItem(i)).ToList()
         )
     );
 
@@ -84,7 +82,7 @@ public class DigitalCredentialsController : BaseApiController
     var DigitalCredential = await _repository.GetBySpecAsync(DigitalCredentialSpec);
     if (DigitalCredential == null) return NotFound("No such DigitalCredential");
 
-    var toDoItem = DigitalCredential.Items.FirstOrDefault(item => item.Id == itemId);
+    var toDoItem = DigitalCredential.AssuredClaims.FirstOrDefault(item => item.Id == itemId);
     if (toDoItem == null) return NotFound("No such item.");
 
     toDoItem.MarkComplete();

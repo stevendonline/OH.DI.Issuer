@@ -10,7 +10,6 @@ public class DigitalCredentialConfiguration : IEntityTypeConfiguration<DigitalCr
   {
     builder.ToContainer("DigitalCredential");
     builder.HasPartitionKey(cred => cred.UserId);
-    builder.HasMany<AssuredClaim>(todo => todo.Items).WithOne();
 
     builder.Property(p => p.Name)
         .HasMaxLength(100)

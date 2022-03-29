@@ -4,7 +4,7 @@ using OH.DI.SharedKernel.Interfaces;
 
 namespace OH.DI.Core.DigitalCredentialAggregate;
 
-public class AssuredClaim : BaseEntity, IAggregateRoot
+public class AssuredClaim : BaseEntity
 {
   public string? Name { get; set; }
   public string? Value { get; set; }

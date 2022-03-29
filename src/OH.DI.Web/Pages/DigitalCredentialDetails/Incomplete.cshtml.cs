@@ -29,6 +29,6 @@ public class IncompleteModel : PageModel
     }
     var spec = new IncompleteClaimsSpec();
 
-    ToDoItems = spec.Evaluate(DigitalCredential.Items).ToList();
+    ToDoItems = spec.Evaluate(DigitalCredential.AssuredClaims).ToList();
   }
 }

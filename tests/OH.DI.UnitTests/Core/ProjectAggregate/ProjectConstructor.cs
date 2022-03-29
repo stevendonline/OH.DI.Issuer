@@ -26,7 +26,7 @@ public class DigitalCredentialConstructor
   {
     _testDigitalCredential = CreateDigitalCredential();
 
-    Assert.NotNull(_testDigitalCredential.Items);
+    Assert.NotNull(_testDigitalCredential.AssuredClaims);
   }
 
   [Fact]

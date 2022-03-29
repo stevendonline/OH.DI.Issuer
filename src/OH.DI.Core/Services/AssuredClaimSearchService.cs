@@ -38,7 +38,7 @@ public class AssuredClaimSearchService : IAssuredClaimSearchService
 
     try
     {
-      var items = incompleteSpec.Evaluate(DigitalCredential.Items).ToList();
+      var items = incompleteSpec.Evaluate(DigitalCredential.AssuredClaims).ToList();
 
       return new Result<List<AssuredClaim>>(items);
     }
@@ -60,7 +60,7 @@ public class AssuredClaimSearchService : IAssuredClaimSearchService
 
     var incompleteSpec = new IncompleteClaimsSpec();
 
-    var items = incompleteSpec.Evaluate(DigitalCredential.Items).ToList();
+    var items = incompleteSpec.Evaluate(DigitalCredential.AssuredClaims).ToList();
 
     if (!items.Any())
     {

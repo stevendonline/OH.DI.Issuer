@@ -24,9 +24,6 @@ public class AppDbContext : CosmosIdentityDbContext<ApplicationUser>
     _mediator = mediator;
   }
 
-  //public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
-  public DbSet<AssuredClaim> ToDoItems { get; set; }
-  //public DbSet<DigitalCredential> DigitalCredentials => Set<DigitalCredential>();
   public DbSet<DigitalCredential> DigitalCredentials { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)

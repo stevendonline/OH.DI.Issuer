@@ -33,10 +33,10 @@ public static class SeedData
         serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null, null))
     {
       // Look for any TODO items.
-      if (dbContext.ToDoItems.Count() > 0)
-      {
-        return;   // DB has been seeded
-      }
+      //if (dbContext.DigitalCredentials.Count() > 0)
+      //{
+      //  return;   // DB has been seeded
+      //}
 
       PopulateTestData(dbContext);
 
@@ -49,10 +49,6 @@ public static class SeedData
     {
       dbContext.Remove(item);
     }
-    foreach (var item in dbContext.ToDoItems)
-    {
-      dbContext.Remove(item);
-    }
     dbContext.SaveChanges();
 
     TestDigitalCredential1.AddItem(ToDoItem1);
@@ -61,5 +57,6 @@ public static class SeedData
     dbContext.DigitalCredentials.Add(TestDigitalCredential1);
 
     dbContext.SaveChanges();
+
   }
 }

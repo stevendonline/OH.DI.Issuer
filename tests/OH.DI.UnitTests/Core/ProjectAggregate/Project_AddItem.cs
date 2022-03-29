@@ -18,7 +18,7 @@ public class DigitalCredential_AddItem
 
     _testDigitalCredential.AddItem(_testItem);
 
-    Assert.Contains(_testItem, _testDigitalCredential.Items);
+    Assert.Contains(_testItem, _testDigitalCredential.AssuredClaims);
   }
 
   [Fact]
