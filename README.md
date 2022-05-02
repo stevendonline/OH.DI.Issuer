@@ -19,6 +19,8 @@ The goal of this repository is to provide a basic solution structure that can be
 
 # OH Verifiable Credentail flows
 This section illustrates some of the basic flows that could be used for issuing, presenting, and validating VC in a sample Issuer app scenario.
+## Learn More about Verifiable Credential development
+- [Aries Cloud Agent - Python](https://github.com/hyperledger/aries-cloudagent-python)
 
 ## Use Verifiable Credential for login
 
