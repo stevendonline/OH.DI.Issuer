@@ -17,7 +17,7 @@
 - [Patterns Used](#patterns-used)
   * [Domain Events](#domain-events)
   * [Related Projects](#related-projects)
-- [Patterns Used](#patterns-used)
+- [Verifiable Credential flows](#OH-Verifiable-Credentail-flows)
 - 
 ## Learn More about clean architecture
 
@@ -74,7 +74,7 @@ This solution template has code built in to support a few common patterns, espec
 
 ## Related Projects
 
-# OH Verifiable Credentail flow
+# OH Verifiable Credentail flows
 
 This section illustrates some of the basic flows that could be used for issuing, presenting, and validating VC in a sample Issuer app scenario.
 
