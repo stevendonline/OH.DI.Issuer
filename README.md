@@ -17,7 +17,8 @@
 - [Patterns Used](#patterns-used)
   * [Domain Events](#domain-events)
   * [Related Projects](#related-projects)
-
+- [Patterns Used](#patterns-used)
+- 
 ## Learn More about clean architecture
 
 - [DotNetRocks Podcast Discussion with Steve "ardalis" Smith](https://player.fm/series/net-rocks/clean-architecture-with-steve-smith)
@@ -72,4 +73,10 @@ This solution template has code built in to support a few common patterns, espec
 ![Domain Event Sequence Diagram](https://user-images.githubusercontent.com/782127/75702680-216ce300-5c73-11ea-9187-ec656192ad3b.png)
 
 ## Related Projects
+
+# OH Verifiable Credentail flow
+
+This section illustrates some of the basic flows that could be used for issuing, presenting, and validating VC in a sample Issuer app scenario.
+
+## Use Verifiable Credential for login
 
